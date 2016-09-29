@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">SeniorProjectAndroid</string>
+    <string-array name="process_array">
+        <item>Admin</item>
+        <item>Assembly</item>
+        <item>BGM Fix</item>
+        <item>Cleaning</item>
+        <item>Conformal Coat</item>
+        <item>Inspection</item>
+        <item>Inventory</item>
+        <item>Pack / Ship</item>
+        <item>Pick / Place</item>
+        <item>Prep</item>
+        <item>Program</item>
+        <item>Solder</item>
+        <item>Test</item>
+        <item>Wave Solder</item>
+    </string-array>
+</resources>
