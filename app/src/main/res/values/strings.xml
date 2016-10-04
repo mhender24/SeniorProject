@@ -16,4 +16,5 @@
         <item>Test</item>
         <item>Wave Solder</item>
     </string-array>
+    <string name="title_activity_timesheet">Timesheet</string>
 </resources>
