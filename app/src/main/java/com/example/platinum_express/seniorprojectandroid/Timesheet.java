@@ -5,12 +5,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
+
+import static com.example.platinum_express.seniorprojectandroid.R.id.textView;
 
 public class Timesheet extends AppCompatActivity {
 
     EditText batch;
-    ListView history;
+    TableLayout history;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,13 +22,20 @@ public class Timesheet extends AppCompatActivity {
         setContentView(R.layout.activity_timesheet);
 
         batch = (EditText) findViewById(R.id.batch_text);
-        history = (ListView) findViewById(R.id.history);
+        history = (TableLayout) findViewById(R.id.history);
 
     }
 
     public void search(View view){
-        TextView t = new TextView(this);
-        t.setText("Hello");
-        history.addView(t);
+        TableRow tableRow;
+        TextView textView;
+        tableRow = new TableRow(this);
+        for (int j = 0; j < 6; j++) {
+            textView = new TextView(this);
+            textView.setText("test");
+            textView.setPadding(10, 10, 10, 10);
+            tableRow.addView(textView);
+        }
+            history.addView(tableRow);
     }
 }
