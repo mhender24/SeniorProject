@@ -1,5 +1,6 @@
 package com.example.platinum_express.seniorprojectandroid;
 
+import android.app.Dialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -46,8 +47,16 @@ public class Timesheet extends AppCompatActivity {
 
     public void add_entry(View view){
         //add blank entry to db
+
+        
         Log.d("Timesheet", "in add");
         createRow();
+
+
+        /*
+        Dialog dlg = new AddPop(this);
+        dlg.show();
+        */
     }
 
     public void createRow(){
