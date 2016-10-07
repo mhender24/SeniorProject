@@ -16,5 +16,18 @@
         <item>Test</item>
         <item>Wave Solder</item>
     </string-array>
+
+    <string-array name="task_array">
+        <item>Wires/Cables</item>
+        <item>Components</item>
+        <item>Crimp</item>
+        <item>Mask</item>
+        <item>Shrink Tube</item>
+        <item>Tape</item>
+        <item>Touch-up</item>
+        <item>Wave/Solder</item>
+        <item>Other</item>
+    </string-array>
+
     <string name="title_activity_timesheet">Timesheet</string>
 </resources>

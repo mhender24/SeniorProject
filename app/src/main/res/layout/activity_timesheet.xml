@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <TextView
         android:text="Batch/Lot #:"
         android:layout_width="wrap_content"
@@ -41,81 +44,97 @@
         android:layout_centerHorizontal="true"
         android:onClick="search" />
 
-    <TableLayout
-        android:layout_width="match_parent"
+    <ScrollView
+        android:id="@+id/layout"
         android:layout_height="match_parent"
-        android:layout_marginTop="36dp"
-        android:layout_marginBottom="80dp"
-        android:layout_below="@+id/history_search"
-        android:id="@+id/history"
-        android:layout_alignLeft="@+id/button2"
-        android:layout_alignStart="@+id/button2"
-        android:layout_alignRight="@+id/history_save_btn"
-        android:layout_alignEnd="@+id/history_save_btn">
-
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:text="Process"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
-
-            <TextView
-                android:text="Operator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
-
-            <TextView
-                android:text="Date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
-
-            <TextView
-                android:text="How Many Boards"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:maxWidth="75dp" />
-
-            <TextView
-                android:text="Hours Worked"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:maxWidth="75dp"/>
-
-            <TextView
-                android:text="Task"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+        android:scrollbars="horizontal|vertical"
+        android:layout_width="match_parent"
+        android:scrollbarStyle="outsideInset"
+        android:fillViewport="true"
+        android:layout_marginTop="280dp"
+        android:layout_marginBottom="100dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="100dp">
 
 
-        </TableRow>
-    </TableLayout>
+        <HorizontalScrollView
+            android:id="@+id/horizontalView"
+            android:layout_height="match_parent"
+            android:scrollbars="horizontal|vertical"
+            android:layout_width="match_parent">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="80dp"
+                android:id="@+id/history">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/history_search"
+                    android:layout_centerHorizontal="true"
+                    android:background="@color/tableHeader">
+
+                    <TextView
+                        android:text="Process"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true" />
+
+                    <TextView
+                        android:text="Operator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true" />
+
+                    <TextView
+                        android:text="Date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true" />
+
+                    <TextView
+                        android:text="How Many Boards"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:maxWidth="75dp" />
+
+                    <TextView
+                        android:text="Hours Worked"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:maxWidth="75dp"/>
+
+                    <TextView
+                        android:text="Task"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true" />
+                </TableRow>
+            </TableLayout>
+        </HorizontalScrollView>
+    </ScrollView>
 
     <Button
         android:text="Add"
@@ -125,8 +144,9 @@
         android:layout_alignLeft="@+id/textView"
         android:layout_alignStart="@+id/textView"
         android:layout_marginBottom="17dp"
-        android:id="@+id/button2"
-        android:minWidth="120dp" />
+        android:id="@+id/add_btn"
+        android:minWidth="120dp"
+        android:onClick="add_entry" />
 
     <Button
         android:text="Save"
@@ -134,11 +154,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/history_save_btn"
         android:minWidth="120dp"
-        android:layout_alignBaseline="@+id/button2"
-        android:layout_alignBottom="@+id/button2"
+        android:layout_marginBottom="17dp"
+        android:layout_alignBaseline="@+id/add_btn"
+        android:layout_alignBottom="@+id/add_btn"
         android:layout_alignRight="@+id/batch_text"
         android:layout_alignEnd="@+id/batch_text" />
-
-
 
 </RelativeLayout>

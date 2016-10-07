@@ -2,13 +2,19 @@ package com.example.platinum_express.seniorprojectandroid;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import static android.graphics.Canvas.EdgeType.AA;
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 import static com.example.platinum_express.seniorprojectandroid.R.id.textView;
 
 public class Timesheet extends AppCompatActivity {
@@ -23,7 +29,6 @@ public class Timesheet extends AppCompatActivity {
 
         batch = (EditText) findViewById(R.id.batch_text);
         history = (TableLayout) findViewById(R.id.history);
-
     }
 
     public void search(View view){
@@ -32,10 +37,41 @@ public class Timesheet extends AppCompatActivity {
         tableRow = new TableRow(this);
         for (int j = 0; j < 6; j++) {
             textView = new TextView(this);
-            textView.setText("test");
+            textView.setText("number is " + j);
             textView.setPadding(10, 10, 10, 10);
             tableRow.addView(textView);
         }
             history.addView(tableRow);
+    }
+
+    public void add_entry(View view){
+        //add blank entry to db
+        Log.d("Timesheet", "in add");
+        createRow();
+    }
+
+    public void createRow(){
+        TableRow tableRow = new TableRow(this);
+        EditText editText;
+
+        Spinner process = new Spinner(this);
+        ArrayAdapter process_adapter = ArrayAdapter.createFromResource(
+                this, R.array.process_array, android.R.layout.simple_spinner_item);
+        process.setAdapter(process_adapter);
+        tableRow.addView(process);
+
+        for(int i =0; i< 4; i++){
+            editText = new EditText(this);
+            editText.setPadding(10, 10, 10, 10);
+            tableRow.addView(editText);
+        }
+
+        Spinner task = new Spinner(this);
+        ArrayAdapter task_adapter = ArrayAdapter.createFromResource(
+                this, R.array.task_array, android.R.layout.simple_spinner_item);
+        task.setAdapter(task_adapter);
+
+        tableRow.addView(task);
+        history.addView(tableRow);
     }
 }
