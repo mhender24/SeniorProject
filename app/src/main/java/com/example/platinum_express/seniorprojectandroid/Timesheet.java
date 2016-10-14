@@ -50,13 +50,13 @@ public class Timesheet extends AppCompatActivity {
 
         
         Log.d("Timesheet", "in add");
-        createRow();
+        //createRow();
 
 
-        /*
-        Dialog dlg = new AddPop(this);
+
+        Dialog dlg = new AddPop(this, this);
         dlg.show();
-        */
+
     }
 
     public void createRow(){
