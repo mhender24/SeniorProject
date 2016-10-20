@@ -36,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
         Log.d("login test", "username=" + username.getText().toString());
         Log.d("login test", "password=" + password.getText().toString());
         if(username.getText().toString().equals("admin") &&
-                password.getText().toString().equals("password")){
+                password.getText().toString().equals("password") || username.getText().toString().equals("a") &&
+                password.getText().toString().equals("a")){
             Log.d("login test", "in login in if");
             Intent myIntent = new Intent(this, Timesheet.class);
             startActivity(myIntent);
