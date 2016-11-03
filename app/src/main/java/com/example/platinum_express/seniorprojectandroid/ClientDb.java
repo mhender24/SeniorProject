@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import java.util.Date;
 
+//import static android.R.attr.password;
 import static android.R.attr.process;
 import static com.example.platinum_express.seniorprojectandroid.R.id.date;
 
@@ -36,6 +37,23 @@ public class ClientDb {
             Log.d("Mine", "Query error: " + e);
         }
         return cursor;
+    }
+
+    String getPass(String user_Id){
+        Cursor cursor = null;
+
+        SQLiteDatabase db = helper.getReadableDatabase();
+        String query = "SELECT User_Password FROM " + DatabaseConstants.UserEntry.TABLE_NAME + " WHERE User_Username = \"" + user_Id + "\"";
+        try{
+            cursor = db.rawQuery(query, null);
+        }
+        catch (SQLException e) {
+            Log.d("Mine", "Query error: " + e);
+        }
+
+        cursor.moveToFirst();
+        return cursor.getString(0);
+
     }
 
     void insertIntoTimesheet(String process, int id, Date date, int boards, int hours, String task, String comment)

@@ -17,7 +17,7 @@ import java.text.SimpleDateFormat;
 import static java.lang.System.currentTimeMillis;
 
 public class MainActivity extends AppCompatActivity {
-
+    ClientDb db = new ClientDb(this);
     EditText username;
     EditText password;
 
@@ -32,12 +32,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void login(View view){
+        //ClientDb database = new ClientDb(getContext());
+
         Log.d("login test", "in login");
         Log.d("login test", "username=" + username.getText().toString());
         Log.d("login test", "password=" + password.getText().toString());
-        if(username.getText().toString().equals("admin") &&
-                password.getText().toString().equals("password") || username.getText().toString().equals("a") &&
-                password.getText().toString().equals("a")){
+        Log.d("login test", db.getPass(username.getText().toString()));
+
+
+        if(username.getText().toString().equals("admin") && password.getText().toString().equals("password") ||
+                (password.getText().toString().equals(db.getPass(username.getText().toString())))||
+                username.getText().toString().equals("a") && password.getText().toString().equals("a")){
+
+
+
             Log.d("login test", "in login in if");
             Intent myIntent = new Intent(this, Timesheet.class);
             startActivity(myIntent);
