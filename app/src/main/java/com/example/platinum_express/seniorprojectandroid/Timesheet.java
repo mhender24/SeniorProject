@@ -23,6 +23,9 @@ import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 import static android.view.ViewGroup.*;
 import static com.example.platinum_express.seniorprojectandroid.R.id.horizontalView;
 import static com.example.platinum_express.seniorprojectandroid.R.id.textView;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 public class Timesheet extends AppCompatActivity{
 
@@ -42,25 +45,38 @@ public class Timesheet extends AppCompatActivity{
 
     public void displayTimesheet(){
         clearHistory();
-        ClientDb db = new ClientDb(this);
-        Cursor entries = db.getTimeSheetRecordsForUser();
-        Log.d("Mine", "Entires = " + Integer.toString(entries.getColumnCount()));
-        int tableWidths[] = {120, 120, 100, 135, 120, 300};
-        TextView textView;
+        Cursor entries = getAllTimeSheetRecordsForUser();
+        Log.d("Mine", "Number = " + entries.getCount());
         TableRow tableRow = null;
         while(entries.moveToNext()) {
-            tableRow = new TableRow(this);
-            for (int j = 0; j < 6; j++) {
-                Log.d("Mine", "Number " + j + " = " + entries.getString(j));
-                textView = new TextView(this);
-                textView.setText(entries.getString(j+1));
-                textView.setPadding(12, 5, 0, 0);
-                textView.setWidth(tableWidths[j]);
-                tableRow.addView(textView);
-            }
+            tableRow = createTableRow(entries);
             history.addView(tableRow);
         }
         entries.close();
+    }
+
+    private TableRow createTableRow(Cursor entry){
+        TableRow tableRow = new TableRow(this);
+        for (int j = 0; j < 6; j++) {
+            TextView tView = createTimesheetTextViewRecord(entry);
+            tableRow.addView(tView);
+        }
+        return tableRow;
+    }
+
+    private TextView createTimesheetTextViewRecord(Cursor entry){
+        int j = 0;
+        int tableWidths[] = {120, 120, 100, 135, 120, 300};
+        TextView textView = new TextView(this);
+        textView.setText(entry.getString(j+1));
+        textView.setPadding(12, 5, 0, 0);
+        textView.setWidth(tableWidths[j]);
+        return textView;
+    }
+
+    private Cursor getAllTimeSheetRecordsForUser(){
+        ClientDb db = new ClientDb(this);
+        return db.getTimeSheetRecordsForUser();
     }
 
     public void search(View view){
@@ -75,30 +91,5 @@ public class Timesheet extends AppCompatActivity{
     public void add_entry(View view){
         Dialog dlg = new AddPop(this, this);
         dlg.show();
-    }
-
-    public void createRow(){
-        TableRow tableRow = new TableRow(this);
-        EditText editText;
-
-        Spinner process = new Spinner(this);
-        ArrayAdapter process_adapter = ArrayAdapter.createFromResource(
-                this, R.array.process_array, android.R.layout.simple_spinner_item);
-        process.setAdapter(process_adapter);
-        tableRow.addView(process);
-
-        for(int i =0; i< 4; i++){
-            editText = new EditText(this);
-            editText.setPadding(10, 10, 10, 10);
-            tableRow.addView(editText);
-        }
-
-        Spinner task = new Spinner(this);
-        ArrayAdapter task_adapter = ArrayAdapter.createFromResource(
-                this, R.array.task_array, android.R.layout.simple_spinner_item);
-        task.setAdapter(task_adapter);
-
-        tableRow.addView(task);
-        history.addView(tableRow);
     }
 }

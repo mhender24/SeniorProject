@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TableRow;
-
 import java.util.Date;
 
 import static com.example.platinum_express.seniorprojectandroid.R.id.op;

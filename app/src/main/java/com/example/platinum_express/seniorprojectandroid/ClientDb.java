@@ -10,6 +10,7 @@ import android.util.Log;
 import java.util.Date;
 
 import static android.R.attr.process;
+import static com.example.platinum_express.seniorprojectandroid.R.id.date;
 
 /**
  * Created by marcelhenderson on 10/24/16.
@@ -29,7 +30,8 @@ public class ClientDb {
         try
         {
             cursor = db.query(DatabaseConstants.TimesheetEntry.TABLE_NAME, null, null, null, null, null, null);
-        }
+            //  https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase.html
+       }
         catch (SQLException e) {
             Log.d("Mine", "Query error: " + e);
         }
@@ -42,6 +44,7 @@ public class ClientDb {
         try
         {
             ContentValues values = new ContentValues();
+
             values.put(DatabaseConstants.TimesheetEntry.COLUMN_NAME_PROCESS, process);
             values.put(DatabaseConstants.TimesheetEntry.COLUMN_NAME_ID, id);
             values.put(DatabaseConstants.TimesheetEntry.COLUMN_NAME_DATE, date.toString());
@@ -65,6 +68,7 @@ public class ClientDb {
         {
             ContentValues values = new ContentValues();
             values.put(DatabaseConstants.TimesheetEntry.COLUMN_NAME_PROCESS, process);
+            //values.put(DatabaseConstants.TimesheetEntry.COLUMN_NAME_DATE, date.toString());
             values.put(DatabaseConstants.TimesheetEntry.COLUMN_NAME_BOARDS, boards);
             values.put(DatabaseConstants.TimesheetEntry.COLUMN_NAME_HOURS, hours);
             values.put(DatabaseConstants.TimesheetEntry.COLUMN_NAME_TASK, task);

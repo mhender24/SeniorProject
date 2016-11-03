@@ -112,14 +112,6 @@
         android:layout_alignStart="@+id/board"
         android:id="@+id/hours" />
 
-    <Spinner
-        android:layout_height="30dp"
-        android:layout_width="150dp"
-        android:id="@+id/task"
-        android:layout_alignTop="@+id/textView5"
-        android:layout_alignRight="@+id/op"
-        android:layout_alignEnd="@+id/op" />
-
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -139,6 +131,15 @@
         android:layout_toStartOf="@+id/task"
         android:layout_marginTop="46dp"
         android:id="@+id/submit" />
+
+    <Spinner
+        android:layout_height="30dp"
+        android:layout_width="150dp"
+        android:id="@+id/task"
+        android:layout_above="@+id/submit"
+        android:layout_alignRight="@+id/hours"
+        android:layout_alignEnd="@+id/hours" />
+
 
 
 </RelativeLayout>
