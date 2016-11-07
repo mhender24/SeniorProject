@@ -21,6 +21,7 @@ import static android.R.attr.entries;
 import static android.graphics.Canvas.EdgeType.AA;
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 import static android.view.ViewGroup.*;
+import static com.example.platinum_express.seniorprojectandroid.R.id.date;
 import static com.example.platinum_express.seniorprojectandroid.R.id.horizontalView;
 import static com.example.platinum_express.seniorprojectandroid.R.id.textView;
 import java.text.SimpleDateFormat;
@@ -58,17 +59,31 @@ public class Timesheet extends AppCompatActivity{
     private TableRow createTableRow(Cursor entry){
         TableRow tableRow = new TableRow(this);
         for (int j = 0; j < 6; j++) {
-            TextView tView = createTimesheetTextViewRecord(entry);
+            TextView tView = createTimesheetTextViewRecord(entry, j);
             tableRow.addView(tView);
         }
         return tableRow;
     }
 
-    private TextView createTimesheetTextViewRecord(Cursor entry){
-        int j = 0;
+    private TextView createTimesheetTextViewRecord(Cursor entry, int j){
         int tableWidths[] = {120, 120, 100, 135, 120, 300};
         TextView textView = new TextView(this);
-        textView.setText(entry.getString(j+1));
+
+        if(j==2) {
+            SimpleDateFormat fromUser = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat myFormat = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+               // Log.d("Data", "returned: " + entry.getString(j+1));
+                String reformattedStr = myFormat.format(fromUser.parse(entry.getString(j + 1)));
+                Log.d("Data", "formatted: " + reformattedStr);
+                textView.setText(reformattedStr);
+            } catch(Exception e){
+                Log.d("Error", "Could not convert");
+            }
+        }
+        else
+            textView.setText(entry.getString(j+1));
+        
         textView.setPadding(12, 5, 0, 0);
         textView.setWidth(tableWidths[j]);
         return textView;

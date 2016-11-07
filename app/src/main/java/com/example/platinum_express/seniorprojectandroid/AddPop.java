@@ -16,6 +16,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TableRow;
 import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.text.DateFormat;
+
 
 import static com.example.platinum_express.seniorprojectandroid.R.id.op;
 
@@ -48,6 +51,7 @@ import static com.example.platinum_express.seniorprojectandroid.R.id.op;
             process = (Spinner)findViewById(R.id.process_spin);
             operator = (EditText)findViewById(op);
             date = (EditText)findViewById(R.id.date);
+            date.setText(new SimpleDateFormat("MM/dd/yyyy").format(new Date()));
             boards = (EditText)findViewById(R.id.board);
             hours = (EditText)findViewById(R.id.hours);
             task = (Spinner)findViewById(R.id.task);
@@ -63,10 +67,12 @@ import static com.example.platinum_express.seniorprojectandroid.R.id.op;
 
         public void onClick(View v) {
             //add to database
+            DateFormat dateFormat = DateFormat.getDateInstance();
+            String parsedDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
             ClientDb db = new ClientDb(getContext());
             int parsedBoards = Integer.parseInt(boards.getText().toString().trim());
             int parsedHours = Integer.parseInt(hours.getText().toString().trim());
-            db.testInsertIntoTimesheet(process.getSelectedItem().toString(), parsedBoards, parsedHours, task.getSelectedItem().toString());
+            db.testInsertIntoTimesheet(process.getSelectedItem().toString(), parsedDate, parsedBoards, parsedHours, task.getSelectedItem().toString());
             timesheet.displayTimesheet();
             Log.d("Mine", "Exiting dialog box");
             dismiss();
