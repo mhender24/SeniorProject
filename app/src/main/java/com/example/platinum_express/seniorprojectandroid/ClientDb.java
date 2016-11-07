@@ -61,14 +61,14 @@ public class ClientDb {
         }
     }
 
-    void testInsertIntoTimesheet(String process, int boards, int hours, String task)
+    void testInsertIntoTimesheet(String process, String date, int boards, int hours, String task)
     {
         SQLiteDatabase db = helper.getWritableDatabase();
         try
         {
             ContentValues values = new ContentValues();
             values.put(DatabaseConstants.TimesheetEntry.COLUMN_NAME_PROCESS, process);
-            //values.put(DatabaseConstants.TimesheetEntry.COLUMN_NAME_DATE, date.toString());
+            values.put(DatabaseConstants.TimesheetEntry.COLUMN_NAME_DATE, date);
             values.put(DatabaseConstants.TimesheetEntry.COLUMN_NAME_BOARDS, boards);
             values.put(DatabaseConstants.TimesheetEntry.COLUMN_NAME_HOURS, hours);
             values.put(DatabaseConstants.TimesheetEntry.COLUMN_NAME_TASK, task);
