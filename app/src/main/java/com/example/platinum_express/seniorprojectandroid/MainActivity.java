@@ -36,7 +36,9 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d("login test", "in login");
         Log.d("login test", "username=" + username.getText().toString());
+
         Log.d("login test", "password=" + password.getText().toString());
+
         Log.d("login test", db.getPass(username.getText().toString()));
 
 
