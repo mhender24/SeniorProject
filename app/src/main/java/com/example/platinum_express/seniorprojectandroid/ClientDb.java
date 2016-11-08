@@ -51,9 +51,12 @@ public class ClientDb {
             Log.d("Mine", "Query error: " + e);
         }
 
-        cursor.moveToFirst();
-        return cursor.getString(0);
-
+        if(cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            return cursor.getString(0);
+        } else {
+            return "\0";
+        }
     }
 
     void insertIntoTimesheet(String process, int id, Date date, int boards, int hours, String task, String comment)
