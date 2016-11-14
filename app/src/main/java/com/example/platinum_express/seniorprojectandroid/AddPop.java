@@ -1,11 +1,8 @@
 package com.example.platinum_express.seniorprojectandroid;
 
-import android.app.Activity;
 import android.app.Dialog;
-import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,10 +11,37 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TableRow;
+
+import org.apache.http.NameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.text.DateFormat;
+import java.util.HashMap;
+import java.util.List;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Exchanger;
+import java.util.concurrent.ExecutionException;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 
 import static com.example.platinum_express.seniorprojectandroid.R.id.op;
@@ -29,12 +53,24 @@ import static com.example.platinum_express.seniorprojectandroid.R.id.op;
     public class AddPop extends Dialog implements OnClickListener
     {
         Timesheet timesheet;
+
         Spinner process;
         EditText operator;
         EditText date;
         EditText boards;
         EditText hours;
         Spinner task;
+
+        String processStr;
+        String operatorStr;
+        String dateStr;
+        String boardsStr;
+        String hoursStr;
+        String taskStr;
+
+        private static final String TAG_SUCCESS = "success";
+        private static String url_create_product = "http://10.0.2.2/SeniorProjectPHP/create_timesheet_record.php";
+        JSONParser jsonParser = new JSONParser();
 
         public AddPop(Context context, Timesheet timesheet) {
             super(context);
@@ -48,6 +84,15 @@ import static com.example.platinum_express.seniorprojectandroid.R.id.op;
             setTitle("Pop up Prototype");
             setContentView(R.layout.add_pop);
 
+            setViewData();
+            Button b = (Button) findViewById(R.id.submit);
+            b.setOnClickListener(this);
+
+            setupAdapter(R.array.process_array, process);
+            setupAdapter(R.array.task_array, task);
+        }
+
+        private void setViewData(){
             process = (Spinner)findViewById(R.id.process_spin);
             operator = (EditText)findViewById(op);
             date = (EditText)findViewById(R.id.date);
@@ -55,26 +100,80 @@ import static com.example.platinum_express.seniorprojectandroid.R.id.op;
             boards = (EditText)findViewById(R.id.board);
             hours = (EditText)findViewById(R.id.hours);
             task = (Spinner)findViewById(R.id.task);
-            Button b = (Button) findViewById(R.id.submit);
-            b.setOnClickListener(this);
+        }
+
+        private void setStrData(){
+             processStr = process.getSelectedItem().toString();
+             operatorStr = operator.getText().toString();
+             dateStr = date.getText().toString();
+             boardsStr = boards.getText().toString();
+             hoursStr = hours.getText().toString();
+             taskStr = task.getSelectedItem().toString();
+        }
+
+        private void setupAdapter(int arrayId, Spinner spinner){
             ArrayAdapter process_adapter = ArrayAdapter.createFromResource(
-                    this.getContext(), R.array.process_array, android.R.layout.simple_spinner_item);
-            process.setAdapter(process_adapter);
-            ArrayAdapter task_adapter = ArrayAdapter.createFromResource(
-                    this.getContext(), R.array.task_array, android.R.layout.simple_spinner_item);
-            task.setAdapter(task_adapter);
+                    this.getContext(), arrayId, android.R.layout.simple_spinner_item);
+            spinner.setAdapter(process_adapter);
         }
 
         public void onClick(View v) {
             //add to database
+            setStrData();
             DateFormat dateFormat = DateFormat.getDateInstance();
             String parsedDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-            ClientDb db = new ClientDb(getContext());
-            int parsedBoards = Integer.parseInt(boards.getText().toString().trim());
-            int parsedHours = Integer.parseInt(hours.getText().toString().trim());
-            db.testInsertIntoTimesheet(process.getSelectedItem().toString(), parsedDate, parsedBoards, parsedHours, task.getSelectedItem().toString());
+            //ClientDb db = new ClientDb(getContext());
+            //int parsedBoards = Integer.parseInt(boards.getText().toString().trim());
+            //int parsedHours = Integer.parseInt(hours.getText().toString().trim());
+            //db.testInsertIntoTimesheet(process.getSelectedItem().toString(), parsedDate,
+             //       parsedBoards, parsedHours, task.getSelectedItem().toString());
+            InsertTimesheetData insert = new InsertTimesheetData();
+            try {
+                insert.execute().get();
+            } catch(InterruptedException e){
+                Log.d("Error", "You had an interruptedException:    " + e );
+            } catch(ExecutionException e){
+                Log.d("Error", "You had an execution exception:    " + e );
+            }
             timesheet.displayTimesheet();
             Log.d("Mine", "Exiting dialog box");
             dismiss();
+        }
+
+        class InsertTimesheetData extends AsyncTask<String, String, String> {
+
+
+            protected String doInBackground(String... args) {
+                DateFormat dateFormat = DateFormat.getDateInstance();
+                String parsedDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+                List<NameValuePair> params = new ArrayList<NameValuePair>();
+                //params.add(new BasicNameValuePair("batch", batch));
+                params.add(new BasicNameValuePair("process", processStr));
+                params.add(new BasicNameValuePair("operator", operatorStr));
+                params.add(new BasicNameValuePair("date", parsedDate));
+                params.add(new BasicNameValuePair("boards", boardsStr));
+                params.add(new BasicNameValuePair("hours", hoursStr));
+                params.add(new BasicNameValuePair("task", taskStr));
+
+
+                JSONObject json = jsonParser.makeHttpRequest(url_create_product,
+                        "POST", params);
+
+                Log.d("Create Response", json.toString());
+
+                try {
+                    int success = json.getInt(TAG_SUCCESS);
+
+                    if (success == 1) {
+                        Log.d("Error", "Insert Successful");
+                    } else {
+                        Log.d("Error", "Insert Failed");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                return null;
+            }
         }
     }

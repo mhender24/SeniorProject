@@ -9,10 +9,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import java.util.Date;
 
-//import static android.R.attr.password;
-import static android.R.attr.process;
-import static com.example.platinum_express.seniorprojectandroid.R.id.date;
-
 /**
  * Created by marcelhenderson on 10/24/16.
  */
@@ -56,7 +52,8 @@ public class ClientDb {
 
     }
 
-    void insertIntoTimesheet(String process, int id, Date date, int boards, int hours, String task, String comment)
+    // Batch_Lot_Code	Process	Operator	Date	Boards	Hours	Task	Index
+    void insertIntoTimesheet(String batch, String process, int id, Date date, int boards, int hours, String task, String comment)
     {
         SQLiteDatabase db = helper.getWritableDatabase();
         try

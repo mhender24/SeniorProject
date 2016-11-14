@@ -9,28 +9,34 @@ import android.provider.BaseColumns;
 public final class DatabaseConstants {
     private DatabaseConstants() { }
 
-    public static class TimesheetEntry implements BaseColumns {
-        public static final String TABLE_NAME = "TimeSheet";
+    // Batch_Lot_Code	Process	    Operator	Date	Boards	Hours	Task	Index
 
+    public static class TimesheetEntry implements BaseColumns {
+        public static final String TABLE_NAME = "Manufacturing_Time";
+
+        public static final String COLUMN_NAME_ID = "Index";
+        public static final String COLUMN_NAME_BATCH = "Batch_Lot_Code";
         public static final String COLUMN_NAME_PROCESS = "Process";
-        public static final String COLUMN_NAME_ID = "ID";
+        public static final String COLUMN_NAME_OPERATOR = "Operator";
         public static final String COLUMN_NAME_DATE = "Date";
-        public static final String COLUMN_NAME_BOARDS = "NumberOfBoards";
+        public static final String COLUMN_NAME_BOARDS = "Boards";
         public static final String COLUMN_NAME_HOURS = "Hours";
         public static final String COLUMN_NAME_TASK = "Task";
-        public static final String COLUMN_NAME_TASKCOMMENTS = "TaskComments";
+        //public static final String COLUMN_NAME_TASKCOMMENTS = "Comments";
 
         public static final String COMMA_SEP = ",";
+
         public static final String SQL_CREATE_TABLE =
                 "CREATE TABLE " + TimesheetEntry.TABLE_NAME + " (" +
-                        TimesheetEntry._ID + " INTEGER PRIMARY KEY," +
-                        TimesheetEntry.COLUMN_NAME_PROCESS + " VARCHAR(20) " + COMMA_SEP +
-                        TimesheetEntry.COLUMN_NAME_ID + " INT(6) " + COMMA_SEP +
+                        TimesheetEntry.COLUMN_NAME_ID + " INTEGER PRIMARY KEY," +
+                        TimesheetEntry.COLUMN_NAME_BATCH + " VARCHAR(10) " + COMMA_SEP +
+                        TimesheetEntry.COLUMN_NAME_PROCESS + " VARCHAR(100) " + COMMA_SEP +
+                        TimesheetEntry.COLUMN_NAME_OPERATOR + " VARCHAR(20) " + COMMA_SEP +
                         TimesheetEntry.COLUMN_NAME_DATE + " DATE " + COMMA_SEP +
-                        TimesheetEntry.COLUMN_NAME_BOARDS + " INT " + COMMA_SEP +
-                        TimesheetEntry.COLUMN_NAME_HOURS + " INT " + COMMA_SEP +
-                        TimesheetEntry.COLUMN_NAME_TASK + " VARCHAR(20) " + COMMA_SEP +
-                        TimesheetEntry.COLUMN_NAME_TASKCOMMENTS + " TEXT  )";
+                        TimesheetEntry.COLUMN_NAME_BOARDS + " INT(11) " + COMMA_SEP +
+                        TimesheetEntry.COLUMN_NAME_HOURS + " DECIMAL(10,0) " + COMMA_SEP +
+                        TimesheetEntry.COLUMN_NAME_TASK + " VARCHAR(100) )";
+                        //TimesheetEntry.COLUMN_NAME_TASKCOMMENTS + " TEXT  )";
 
         public static final String SQL_DELETE_ENTRIES =
                 "DROP TABLE IF EXISTS " + TimesheetEntry.TABLE_NAME;
