@@ -47,9 +47,12 @@ public class ClientDb {
             Log.d("Mine", "Query error: " + e);
         }
 
-        cursor.moveToFirst();
-        return cursor.getString(0);
-
+        if(cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            return cursor.getString(0);
+        } else {
+            return "\0";
+        }
     }
 
     // Batch_Lot_Code	Process	Operator	Date	Boards	Hours	Task	Index
