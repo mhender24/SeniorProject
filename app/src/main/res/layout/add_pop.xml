@@ -3,143 +3,206 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <TextView
-        android:text="Process"
-        android:id="@+id/textView4"
-        android:layout_width="150dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="98dp"
-        android:textSize="25sp"
-
-        android:layout_marginLeft="23dp"
-        android:layout_marginStart="23dp"
-        android:layout_alignParentTop="true"
+    <ScrollView
+        android:id="@+id/layout"
+        android:scrollbars="horizontal|vertical"
+        android:scrollbarStyle="outsideInset"
+        android:fillViewport="true"
+        android:layout_width="975dp"
+        android:layout_height="285dp"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+        <TableLayout
+            android:layout_width="match_parent"
+            android:id="@+id/history"
+            android:layout_height="match_parent">
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_alignLeft="@+id/textView"
+                android:layout_alignStart="@+id/textView"
+                android:layout_alignRight="@+id/layout"
+                android:layout_alignEnd="@+id/layout">
+                <TextView
+                    android:text="Process"
+                    android:id="@+id/textView4"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="25dp"
+                    android:textSize="25sp"
 
-    <TextView
-        android:text="Task"
-        android:id="@+id/textView5"
-        android:layout_width="150dp"
-        android:layout_height="30dp"
-        android:textSize="25sp"
-        android:layout_below="@+id/textView9"
-        android:layout_alignLeft="@+id/textView9"
-        android:layout_alignStart="@+id/textView9"
-        android:layout_marginTop="19dp" />
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
 
-    <TextView
-        android:text="Hours Worked"
-        android:id="@+id/textView9"
-        android:layout_width="150dp"
-        android:layout_height="30dp"
-        android:textSize="25sp"
-        android:layout_below="@+id/textView8"
-        android:layout_alignLeft="@+id/textView8"
-        android:layout_alignStart="@+id/textView8"
-        android:layout_marginTop="15dp" />
+                <Spinner
+                    android:layout_height="30dp"
+                    android:layout_width="150dp"
+                    android:layout_marginTop="25dp"
+                    android:id="@+id/process_spin"
+                    android:layout_alignTop="@+id/textView4"
+                    android:layout_toRightOf="@+id/textView4"
+                    android:layout_toEndOf="@+id/textView4" />
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_alignLeft="@+id/textView"
+                android:layout_alignStart="@+id/textView"
+                android:layout_alignRight="@+id/layout"
+                android:layout_alignEnd="@+id/layout">
+                <TextView
+                    android:text="Task"
+                    android:id="@+id/textView5"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:textSize="25sp"
+                    android:layout_below="@+id/textView9"
+                    android:layout_alignLeft="@+id/textView9"
+                    android:layout_alignStart="@+id/textView9"
+                    android:layout_marginTop="19dp" />
+                <Spinner
+                    android:layout_height="30dp"
+                    android:layout_marginTop="19dp"
+                    android:layout_width="150dp"
+                    android:id="@+id/task"
+                    android:layout_above="@+id/submit"
+                    android:layout_alignRight="@+id/hours"
+                    android:layout_alignEnd="@+id/hours" />
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_alignLeft="@+id/textView"
+                android:layout_alignStart="@+id/textView"
+                android:layout_alignRight="@+id/layout"
+                android:layout_alignEnd="@+id/layout">
+                <TextView
+                    android:text="Hours Worked"
+                    android:id="@+id/textView9"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:textSize="25sp"
+                    android:layout_below="@+id/textView8"
+                    android:layout_alignLeft="@+id/textView8"
+                    android:layout_alignStart="@+id/textView8"
+                    android:layout_marginTop="19dp" />
+                <EditText
+                    android:imeOptions="flagNoExtractUi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:layout_marginTop="19dp"
 
-    <TextView
-        android:text="How Many Boards:"
-        android:id="@+id/textView8"
-        android:layout_width="150dp"
-        android:layout_height="30dp"
-        android:textSize="25sp"
-        android:layout_below="@+id/textView7"
-        android:layout_alignLeft="@+id/textView7"
-        android:layout_alignStart="@+id/textView7"
-        android:layout_marginTop="15dp" />
-
-    <TextView
-        android:text="Date"
-        android:id="@+id/textView7"
-        android:layout_width="150dp"
-        android:layout_height="30dp"
-        android:textSize="25sp"
-        android:layout_below="@+id/textView6"
-        android:layout_alignLeft="@+id/textView6"
-        android:layout_alignStart="@+id/textView6"
-        android:layout_marginTop="18dp" />
-
-    <TextView
-        android:text="Operator"
-        android:id="@+id/textView6"
-        android:layout_width="150dp"
-        android:layout_height="30dp"
-        android:textSize="25sp"
-        android:layout_below="@+id/textView4"
-        android:layout_alignLeft="@+id/textView4"
-        android:layout_alignStart="@+id/textView4"
-        android:layout_marginTop="15dp" />
-
-    <Spinner
-        android:layout_height="30dp"
-        android:layout_width="150dp"
-        android:layout_marginLeft="73dp"
-        android:id="@+id/process_spin"
-        android:layout_marginStart="73dp"
-        android:layout_alignTop="@+id/textView4"
-        android:layout_toRightOf="@+id/textView4"
-        android:layout_toEndOf="@+id/textView4" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="date"
-        android:ems="10"
-        android:layout_below="@+id/op"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/date" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/board"
-        android:layout_below="@+id/date"
-        android:layout_alignLeft="@+id/date"
-        android:layout_alignStart="@+id/date" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:layout_alignTop="@+id/textView9"
-        android:layout_alignLeft="@+id/board"
-        android:layout_alignStart="@+id/board"
-        android:id="@+id/hours" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/op"
-        android:layout_alignBottom="@+id/textView6"
-        android:layout_alignLeft="@+id/date"
-        android:layout_alignStart="@+id/date" />
-
-    <Button
-        android:text="Submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView5"
-        android:layout_toLeftOf="@+id/task"
-        android:layout_toStartOf="@+id/task"
-        android:layout_marginTop="46dp"
-        android:id="@+id/submit" />
-
-    <Spinner
-        android:layout_height="30dp"
-        android:layout_width="150dp"
-        android:id="@+id/task"
-        android:layout_above="@+id/submit"
-        android:layout_alignRight="@+id/hours"
-        android:layout_alignEnd="@+id/hours" />
+                    android:layout_alignTop="@+id/textView9"
+                    android:layout_alignLeft="@+id/board"
+                    android:layout_alignStart="@+id/board"
+                    android:id="@+id/hours" />
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_alignLeft="@+id/textView"
+                android:layout_alignStart="@+id/textView"
+                android:layout_alignRight="@+id/layout"
+                android:layout_alignEnd="@+id/layout">
 
 
+                <TextView
+                    android:text="How Many Boards:"
+                    android:id="@+id/textView8"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:textSize="25sp"
+                    android:layout_below="@+id/textView7"
+                    android:layout_alignLeft="@+id/textView7"
+                    android:layout_alignStart="@+id/textView7"
+                    android:layout_marginTop="19dp" />
+                <EditText
+                    android:imeOptions="flagNoExtractUi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/board"
+                    android:layout_marginTop="19dp"
+                    android:layout_below="@+id/date"
+                    android:layout_alignLeft="@+id/date"
+                    android:layout_alignStart="@+id/date" />
 
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_alignLeft="@+id/textView"
+                android:layout_alignStart="@+id/textView"
+                android:layout_alignRight="@+id/layout"
+                android:layout_alignEnd="@+id/layout">
+                <TextView
+                    android:text="Date"
+                    android:id="@+id/textView7"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:textSize="25sp"
+                    android:layout_below="@+id/textView6"
+                    android:layout_alignLeft="@+id/textView6"
+                    android:layout_alignStart="@+id/textView6"
+                    android:layout_marginTop="19dp" />
+                <EditText
+                    android:imeOptions="flagNoExtractUi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="date"
+                    android:ems="10"
+                    android:layout_marginTop="19dp"
+                    android:layout_below="@+id/op"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/date" />
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_alignLeft="@+id/textView"
+                android:layout_alignStart="@+id/textView"
+                android:layout_alignRight="@+id/layout"
+                android:layout_alignEnd="@+id/layout">
+                <TextView
+                    android:text="Operator"
+                    android:id="@+id/textView6"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:textSize="25sp"
+                    android:layout_below="@+id/textView4"
+                    android:layout_alignLeft="@+id/textView4"
+                    android:layout_alignStart="@+id/textView4"
+                    android:layout_marginTop="19dp" />
+
+                <EditText
+                    android:imeOptions="flagNoExtractUi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:ems="10"
+                    android:id="@+id/op"
+                    android:layout_marginTop="19dp"
+                    android:layout_alignBottom="@+id/textView6"
+                    android:layout_alignLeft="@+id/date"
+                    android:layout_alignStart="@+id/date" />
+            </TableRow>
+            <Button
+                android:text="Submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView5"
+                android:layout_toLeftOf="@+id/task"
+                android:layout_toStartOf="@+id/task"
+                android:layout_marginTop="46dp"
+                android:id="@+id/submit" />
+
+
+        </TableLayout>
+    </ScrollView>
 </RelativeLayout>
