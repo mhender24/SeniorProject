@@ -36,7 +36,7 @@ public class GetTimesheetData extends AsyncTask<String, String, String> {
     JSONArray timesheet = null;
 
     // url to get all products list
-    private static String url_user_timesheet = "http://10.0.2.2/SeniorProjectPHP/get_timesheet_record.php";
+    private static String url_user_timesheet = "http://www.bgmeng.com/TrackBGMphp/get_timesheet_record.php";
 
 
     protected String doInBackground(String... args) {

@@ -69,7 +69,7 @@ import static com.example.platinum_express.seniorprojectandroid.R.id.op;
         String taskStr;
 
         private static final String TAG_SUCCESS = "success";
-        private static String url_create_product = "http://10.0.2.2/SeniorProjectPHP/create_timesheet_record.php";
+        private static String url_create_product = "http://www.bgmeng.com/TrackBGMphp/create_timesheet_record.php";
         JSONParser jsonParser = new JSONParser();
 
         public AddPop(Context context, Timesheet timesheet) {

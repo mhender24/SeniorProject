@@ -74,28 +74,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             Intent myIntent = new Intent(this, Timesheet.class);
             startActivity(myIntent);
         }
-        /*
-        if (db.getPass(username.getText().toString()).equals("\0")){
-            error.setText("Invalid Username/Password");
-        } else {
-            error.setText("");
-            Log.d("login test", db.getPass(username.getText().toString()));
-        }
-
-        if(username.getText().toString().equals("admin") && password.getText().toString().equals("password") ||
-                (password.getText().toString().equals(db.getPass(username.getText().toString())))||
-                username.getText().toString().equals("a") && password.getText().toString().equals("a")){
-            Log.d("login test", "in login in if");
-            Intent myIntent = new Intent(this, Timesheet.class);
-            startActivity(myIntent);
-        }else{
-            error.setText("Invalid Username/Password");
-        }
-        */
     }
 
     class AuthenticateUser extends AsyncTask<String, String, String> {
-        String url_get_user_password = "http://10.0.2.2/SeniorProjectPHP/get_user_record.php";
+        String url_get_user_password = "http://www.bgmeng.com/TrackBGMphp/get_user_record.php";
         JSONArray jsonResponse;
         private String username;
         private String encryptedPassword;
@@ -104,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             this.username = username;
             this.encryptedPassword = "";
             this.jsonResponse = null;
-            this.url_get_user_password += "?username='" + username + "'";
+            this.url_get_user_password += "?username=" + username;
         }
         protected String doInBackground(String... args) {
            List<NameValuePair> params = new ArrayList<NameValuePair>();
