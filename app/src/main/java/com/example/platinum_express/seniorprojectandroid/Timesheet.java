@@ -26,7 +26,7 @@ public class Timesheet extends AppCompatActivity{
     EditText batch;
     TableLayout history;
     int tableWidths[] = {120, 120, 100, 135, 120, 300};
-
+    String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +35,13 @@ public class Timesheet extends AppCompatActivity{
 
         batch = (EditText) findViewById(R.id.batch_text);
         history = (TableLayout) findViewById(R.id.history);
-
-        displayTimesheet();
+        username = getIntent().getStringExtra("username");
+        Log.d("username", "username= " + username);
     }
 
     public void displayTimesheet(){
         clearHistory();
-        GetTimesheetData timesheet = new GetTimesheetData();
+        GetTimesheetData timesheet = new GetTimesheetData(username);
         try {
             timesheet.execute().get();
             TableRow tableRow = null;
@@ -112,3 +112,4 @@ public class Timesheet extends AppCompatActivity{
         dlg.show();
     }
 }
+
