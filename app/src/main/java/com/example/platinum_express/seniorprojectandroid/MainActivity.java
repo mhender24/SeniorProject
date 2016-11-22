@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             JSONObject json = jsonParser.makeHttpRequest(url_get_user_password,
                     "GET", params);
 
-            Log.d("Getting User Password", json.toString());
+            //Log.d("Getting User Password", json.toString());
 
             try {
                 int success = json.getInt(TAG_SUCCESS);
