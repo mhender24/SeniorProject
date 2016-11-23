@@ -54,18 +54,14 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         Log.d("login test", "in login");
         Log.d("login test", "username=" + username.getText().toString());
         Log.d("login test", "password=" + password.getText().toString());
-        if(username.getText().toString().equals("a") && password.getText().toString().equals("a"))
-        {
-            Intent myIntent = new Intent(this, Timesheet.class);
-            startActivity(myIntent);
-        }
         try {
             AuthenticateUser auth = new AuthenticateUser(username.getText().toString());
             auth.execute().get();
             Log.d("compare", "enter pass = " + password.getText().toString() + "encrypted= " + auth.encryptedPassword);
             if(Encryption.decrypt(password.getText().toString(), auth.encryptedPassword)){
-                Intent myIntent = new Intent(this, Timesheet.class);
-                startActivity(myIntent);
+                Intent intent = new Intent(this, Timesheet.class);
+                intent.putExtra("username", username.getText().toString());
+                startActivity(intent);
             }
             else
                 error.setText("Invalid Username/Password");
@@ -74,7 +70,12 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             Log.d("Error", "Occurred during decryption");
             error.setText("Invalid Username/Password");
         }
-
+        if(username.getText().toString().equals("a") && password.getText().toString().equals("a"))
+        {
+            Intent intent = new Intent(this, Timesheet.class);
+            intent.putExtra("username", username.getText().toString());
+            startActivity(intent);
+        }
     }
 
     class AuthenticateUser extends AsyncTask<String, String, String> {

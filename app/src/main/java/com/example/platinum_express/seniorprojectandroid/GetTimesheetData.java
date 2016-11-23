@@ -34,10 +34,15 @@ public class GetTimesheetData extends AsyncTask<String, String, String> {
     JSONParser jParser = new JSONParser();
     ArrayList<HashMap<String, String>> dataList;
     JSONArray timesheet = null;
+    String username;
 
     // url to get all products list
     private static String url_user_timesheet = "http://www.bgmeng.com/TrackBGMphp/get_timesheet_record.php";
 
+    public GetTimesheetData(String username){
+        this.username = username;
+        url_user_timesheet += "?username=" +username;
+    }
 
     protected String doInBackground(String... args) {
         Log.d("Check", "In doInBackground");

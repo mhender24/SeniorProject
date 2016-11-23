@@ -27,20 +27,14 @@ import java.util.concurrent.ExecutionException;
 
 import static android.R.attr.entries;
 
-public class Timesheet extends AppCompatActivity {
+public class Timesheet extends AppCompatActivity{
 
     private final int DATE_POSITION_IN_ARRAY = 2;
-    HorizontalScrollView heading;
-    HorizontalScrollView layout;
+
     EditText batch;
     TableLayout history;
     int tableWidths[] = {120, 120, 100, 135, 120, 300};
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
-
+    String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,35 +42,29 @@ public class Timesheet extends AppCompatActivity {
         setContentView(R.layout.activity_timesheet);
         batch = (EditText) findViewById(R.id.batch_text);
         history = (TableLayout) findViewById(R.id.history);
-        displayTimesheet();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+        username = getIntent().getStringExtra("username");
+        Log.d("username", "username= " + username);
     }
 
-
-
-
-    public void displayTimesheet() {
+    public void displayTimesheet(){
         clearHistory();
-        GetTimesheetData timesheet = new GetTimesheetData();
+        GetTimesheetData timesheet = new GetTimesheetData(username);
         try {
             timesheet.execute().get();
             TableRow tableRow = null;
-            for (int i = 0; i < timesheet.dataList.size(); i++) {
+            for(int i=0; i<timesheet.dataList.size(); i++){
                 HashMap<String, String> entry = timesheet.dataList.get(i);
                 tableRow = createTableRow(entry);
                 history.addView(tableRow);
             }
-        } catch (InterruptedException e) {
-            Log.d("Error", "You had an interruptedException:    " + e);
-        } catch (ExecutionException e) {
-            Log.d("Error", "You had an execution exception:    " + e);
+        } catch(InterruptedException e){
+            Log.d("Error", "You had an interruptedException:    " + e );
+        } catch(ExecutionException e){
+            Log.d("Error", "You had an execution exception:    " + e );
         }
     }
 
-    private TableRow createTableRow(HashMap<String, String> entry) {
+    private TableRow createTableRow(HashMap<String, String> entry){
         TableRow tableRow = new TableRow(this);
         for (int j = 0; j < 6; j++) {
             TextView tView = createTimesheetTextViewRecord(entry, j);
@@ -85,10 +73,10 @@ public class Timesheet extends AppCompatActivity {
         return tableRow;
     }
 
-    private TextView createTimesheetTextViewRecord(HashMap<String, String> entry, int j) {
+    private TextView createTimesheetTextViewRecord(HashMap<String, String> entry, int j){
         TextView textView = new TextView(this);
         String[] keys = {"Process", "Operator", "Date", "Boards", "Hours", "Task"};
-        if (j == DATE_POSITION_IN_ARRAY)
+        if(j==DATE_POSITION_IN_ARRAY)
             textView.setText(formatDate(entry.get("Date")));
         else
             textView.setText(entry.get(keys[j]));
@@ -97,14 +85,14 @@ public class Timesheet extends AppCompatActivity {
         return textView;
     }
 
-    private String formatDate(String date) {
+    private String formatDate(String date){
         Log.d("Date", "date= " + date);
         SimpleDateFormat fromUser = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat myFormat = new SimpleDateFormat("dd/MM/yyyy");
         String formattedStr = "";
         try {
             formattedStr = myFormat.format(fromUser.parse(date));
-        } catch (Exception e) {
+        } catch(Exception e){
             Log.d("Error", "Could not convert");
         }
         return formattedStr;
@@ -117,22 +105,18 @@ public class Timesheet extends AppCompatActivity {
     }
     */
 
-    public void search(View view) {
+    public void search(View view){
         displayTimesheet();
     }
 
-    public void clearHistory() {
-        if (history.getChildCount() > 0)
+    public void clearHistory(){
+        if(history.getChildCount() > 0)
             history.removeAllViews();
     }
 
-    public void add_entry(View view) {
+    public void add_entry(View view){
         Dialog dlg = new AddPop(this, this);
         dlg.show();
     }
-
-
-
-
-
 }
+
