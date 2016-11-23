@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
-        //error = (TextView) findViewById(R.id.login_error);
+
         username = (EditText) findViewById(R.id.user_name);
         password = (EditText) findViewById(R.id.password);
         login_submit = (Button) findViewById(R.id.login_submit);
@@ -54,6 +54,11 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         Log.d("login test", "in login");
         Log.d("login test", "username=" + username.getText().toString());
         Log.d("login test", "password=" + password.getText().toString());
+        if(username.getText().toString().equals("a") && password.getText().toString().equals("a"))
+        {
+            Intent myIntent = new Intent(this, Timesheet.class);
+            startActivity(myIntent);
+        }
         try {
             AuthenticateUser auth = new AuthenticateUser(username.getText().toString());
             auth.execute().get();
@@ -69,11 +74,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             Log.d("Error", "Occurred during decryption");
             error.setText("Invalid Username/Password");
         }
-        if(username.getText().toString().equals("a") && password.getText().toString().equals("a"))
-        {
-            Intent myIntent = new Intent(this, Timesheet.class);
-            startActivity(myIntent);
-        }
+
     }
 
     class AuthenticateUser extends AsyncTask<String, String, String> {
@@ -95,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             JSONObject json = jsonParser.makeHttpRequest(url_get_user_password,
                     "GET", params);
 
-            //Log.d("Getting User Password", json.toString());
+            Log.d("Getting User Password", json.toString());
 
             try {
                 int success = json.getInt(TAG_SUCCESS);
