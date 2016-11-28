@@ -120,7 +120,7 @@
                         android:text="Operator"
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
-                        android:padding="10dp"
+                        android:padding="11dp"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true" />
@@ -128,27 +128,27 @@
                     <TextView
                         android:text="Date"
                         android:layout_height="wrap_content"
-                        android:padding="10dp"
+                        android:padding="12dp"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
                         android:layout_width="100dp" />
 
                     <TextView
-                        android:text="How Many Boards"
-                        android:padding="10dp"
+                        android:text="Number of Boards"
+                        android:padding="11dp"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
                         android:maxWidth="75dp"
                         android:layout_height="match_parent"
-                        android:layout_width="135dp" />
+                        android:layout_width="140dp" />
 
                     <TextView
                         android:text="Hours Worked"
                         android:layout_width="120dp"
                         android:layout_height="match_parent"
-                        android:padding="10dp"
+                        android:padding="11dp"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
@@ -157,7 +157,7 @@
                     <TextView
                         android:text="Task"
                         android:layout_height="wrap_content"
-                        android:padding="10dp"
+                        android:padding="9dp"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
@@ -179,15 +179,13 @@
                     <TableLayout
                         android:layout_width="match_parent"
                         android:layout_marginBottom="80dp"
-                        android:padding="20dp"
+                        android:padding="0dp"
                         android:id="@+id/history"
                         android:layout_height="match_parent">
 
                     </TableLayout>
                 </ScrollView>
-
             </LinearLayout>
         </HorizontalScrollView>
     </RelativeLayout>
-
 </RelativeLayout>

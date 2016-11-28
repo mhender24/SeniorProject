@@ -33,7 +33,7 @@ public class Timesheet extends AppCompatActivity{
 
     EditText batch;
     TableLayout history;
-    int tableWidths[] = {120, 120, 100, 135, 120, 300};
+    int tableWidths[] = {120, 120, 100, 140, 120, 300};
     String username;
 
     @Override
@@ -49,6 +49,7 @@ public class Timesheet extends AppCompatActivity{
     public void displayTimesheet(){
         clearHistory();
         GetTimesheetData timesheet = new GetTimesheetData(username);
+
         try {
             timesheet.execute().get();
             TableRow tableRow = null;
@@ -62,7 +63,9 @@ public class Timesheet extends AppCompatActivity{
         } catch(ExecutionException e){
             Log.d("Error", "You had an execution exception:    " + e );
         }
+
     }
+
 
     private TableRow createTableRow(HashMap<String, String> entry){
         TableRow tableRow = new TableRow(this);
