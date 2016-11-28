@@ -45,6 +45,7 @@ import android.widget.EditText;
 
 
 import static com.example.platinum_express.seniorprojectandroid.R.id.op;
+import static com.example.platinum_express.seniorprojectandroid.R.id.time;
 
 /**
  * Created by marcelhenderson on 10/7/16.
@@ -95,6 +96,7 @@ import static com.example.platinum_express.seniorprojectandroid.R.id.op;
         private void setViewData(){
             process = (Spinner)findViewById(R.id.process_spin);
             operator = (EditText)findViewById(op);
+            operator.setText(timesheet.username);
             date = (EditText)findViewById(R.id.date);
             date.setText(new SimpleDateFormat("MM/dd/yyyy").format(new Date()));
             boards = (EditText)findViewById(R.id.board);
