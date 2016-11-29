@@ -1,6 +1,9 @@
 package com.example.platinum_express.seniorprojectandroid;
 
 import android.content.Intent;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.List;
 import java.util.ArrayList;
+
 
 //import java.util.Date;
 //import org.apache.http.message.BasicNameValuePair;
@@ -35,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     EditText password;
     TextView error;
     Button login_submit;
-
+    boolean isConnected = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -47,33 +51,48 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         login_submit = (Button) findViewById(R.id.login_submit);
         error = (TextView) findViewById(R.id.login_error);
         login_submit.setOnClickListener(this);
+
+
     }
 
     public void onClick(View view){
-        Log.d("login test", "in login");
-        Log.d("login test", "username=" + username.getText().toString());
-        Log.d("login test", "password=" + password.getText().toString());
-        try {
-            AuthenticateUser auth = new AuthenticateUser(username.getText().toString());
-            auth.execute().get();
-            Log.d("compare", "enter pass = " + password.getText().toString() + "encrypted= " + auth.encryptedPassword);
-            if(Encryption.decrypt(password.getText().toString(), auth.encryptedPassword)){
+        ConnectivityManager cm =
+                (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        isConnected = (activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting());
+        if (isConnected){
+            Log.d("netowrk: ", "true");
+            Log.d("login test", "in login");
+            Log.d("login test", "username=" + username.getText().toString());
+            Log.d("login test", "password=" + password.getText().toString());
+            try {
+                AuthenticateUser auth = new AuthenticateUser(username.getText().toString());
+                auth.execute().get();
+                Log.d("compare", "enter pass = " + password.getText().toString() + "encrypted= " + auth.encryptedPassword);
+                if(Encryption.decrypt(password.getText().toString(), auth.encryptedPassword)){
+                    Intent intent = new Intent(this, Timesheet.class);
+                    intent.putExtra("username", username.getText().toString());
+                    startActivity(intent);
+                }
+                else
+                    error.setText("Invalid Username/Password");
+            } catch(Exception e) {
+                Log.d("login test", db.getPass(username.getText().toString()));
+                Log.d("Error", "Occurred during decryption");
+                error.setText("Invalid Username/Password");
+            }
+            if(username.getText().toString().equals("a") && password.getText().toString().equals("a"))
+            {
                 Intent intent = new Intent(this, Timesheet.class);
                 intent.putExtra("username", username.getText().toString());
                 startActivity(intent);
             }
-            else
-                error.setText("Invalid Username/Password");
-        } catch(Exception e) {
-            Log.d("login test", db.getPass(username.getText().toString()));
-            Log.d("Error", "Occurred during decryption");
-            error.setText("Invalid Username/Password");
-        }
-        if(username.getText().toString().equals("a") && password.getText().toString().equals("a"))
-        {
-            Intent intent = new Intent(this, Timesheet.class);
-            intent.putExtra("username", username.getText().toString());
-            startActivity(intent);
+        } else {
+            Log.d("netowrk: ", "false");
+            error.setText("No network found");
+
         }
     }
 
