@@ -1,11 +1,9 @@
 package com.example.platinum_express.seniorprojectandroid;
 
-import android.content.Intent;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -48,6 +46,7 @@ import android.widget.EditText;
 
 import static com.example.platinum_express.seniorprojectandroid.R.id.batch_text;
 import static com.example.platinum_express.seniorprojectandroid.R.id.op;
+import static com.example.platinum_express.seniorprojectandroid.R.id.time;
 
 /**
  * Created by marcelhenderson on 10/7/16.
@@ -105,7 +104,6 @@ import static com.example.platinum_express.seniorprojectandroid.R.id.op;
             boards = (EditText)findViewById(R.id.board);
             hours = (EditText)findViewById(R.id.hours);
             task = (Spinner)findViewById(R.id.task);
-
         }
 
         private void setStrData(){
@@ -115,7 +113,6 @@ import static com.example.platinum_express.seniorprojectandroid.R.id.op;
              boardsStr = boards.getText().toString();
              hoursStr = hours.getText().toString();
              taskStr = task.getSelectedItem().toString();
-
         }
 
         private void setupAdapter(int arrayId, Spinner spinner){
