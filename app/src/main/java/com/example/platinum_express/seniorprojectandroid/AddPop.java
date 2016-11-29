@@ -44,9 +44,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 
-import static com.example.platinum_express.seniorprojectandroid.R.id.batch_text;
-import static com.example.platinum_express.seniorprojectandroid.R.id.op;
-import static com.example.platinum_express.seniorprojectandroid.R.id.time;
 
 /**
  * Created by marcelhenderson on 10/7/16.
