@@ -1,5 +1,6 @@
 package com.example.platinum_express.seniorprojectandroid;
 
+import android.content.Intent;
 import android.app.Dialog;
 import android.database.Cursor;
 import android.net.Uri;
@@ -118,8 +119,12 @@ public class Timesheet extends AppCompatActivity{
     }
 
     public void add_entry(View view){
-        Dialog dlg = new AddPop(this, this);
-        dlg.show();
+        Intent intent1 = new Intent(this, AddPop.class);
+        intent1.putExtra("batch", batch.getText().toString());
+        intent1.putExtra("username", username.toString());
+        startActivity(intent1);
+        //Dialog dlg = new AddPop(this, this);
+        //dlg.show();
     }
 }
 

@@ -1,9 +1,11 @@
 package com.example.platinum_express.seniorprojectandroid;
 
+import android.content.Intent;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -44,15 +46,17 @@ import android.widget.Button;
 import android.widget.EditText;
 
 
+import static com.example.platinum_express.seniorprojectandroid.R.id.batch_text;
 import static com.example.platinum_express.seniorprojectandroid.R.id.op;
 
 /**
  * Created by marcelhenderson on 10/7/16.
  */
 
-    public class AddPop extends Dialog implements OnClickListener
+    public class AddPop extends AppCompatActivity implements OnClickListener
     {
         Timesheet timesheet;
+
 
         Spinner process;
         EditText operator;
@@ -61,45 +65,47 @@ import static com.example.platinum_express.seniorprojectandroid.R.id.op;
         EditText hours;
         Spinner task;
 
+
         String processStr;
         String operatorStr;
         String dateStr;
         String boardsStr;
         String hoursStr;
         String taskStr;
+        String batchStr;
 
         private static final String TAG_SUCCESS = "success";
         private static String url_create_product = "http://www.bgmeng.com/TrackBGMphp/create_timesheet_record.php";
         JSONParser jsonParser = new JSONParser();
 
-        public AddPop(Context context, Timesheet timesheet) {
-            super(context);
-            this.timesheet = timesheet;
-        }
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-
-            setTitle("Pop up Prototype");
             setContentView(R.layout.add_pop);
-
+            setTitle("Pop up Prototype");
+            operatorStr = getIntent().getStringExtra("username");
+            batchStr = getIntent().getStringExtra("batch");
             setViewData();
             Button b = (Button) findViewById(R.id.submit);
             b.setOnClickListener(this);
 
             setupAdapter(R.array.process_array, process);
             setupAdapter(R.array.task_array, task);
+
+
         }
 
         private void setViewData(){
             process = (Spinner)findViewById(R.id.process_spin);
-            operator = (EditText)findViewById(op);
+            operator = (EditText) findViewById(R.id.op);
+            operator.setText(operatorStr.toString());
             date = (EditText)findViewById(R.id.date);
             date.setText(new SimpleDateFormat("MM/dd/yyyy").format(new Date()));
             boards = (EditText)findViewById(R.id.board);
             hours = (EditText)findViewById(R.id.hours);
             task = (Spinner)findViewById(R.id.task);
+
         }
 
         private void setStrData(){
@@ -109,11 +115,12 @@ import static com.example.platinum_express.seniorprojectandroid.R.id.op;
              boardsStr = boards.getText().toString();
              hoursStr = hours.getText().toString();
              taskStr = task.getSelectedItem().toString();
+
         }
 
         private void setupAdapter(int arrayId, Spinner spinner){
             ArrayAdapter process_adapter = ArrayAdapter.createFromResource(
-                    this.getContext(), arrayId, android.R.layout.simple_spinner_item);
+                    this, arrayId, android.R.layout.simple_spinner_item);
             spinner.setAdapter(process_adapter);
         }
 
@@ -135,9 +142,13 @@ import static com.example.platinum_express.seniorprojectandroid.R.id.op;
             } catch(ExecutionException e){
                 Log.d("Error", "You had an execution exception:    " + e );
             }
-            timesheet.displayTimesheet();
+            //timesheet.displayTimesheet();
             Log.d("Mine", "Exiting dialog box");
-            dismiss();
+
+            //TODO Create a new intent to switch back to Timesheet
+            Intent intent = new Intent(this, Timesheet.class);
+            intent.putExtra("username", operator.getText().toString());
+            startActivity(intent);
         }
 
         class InsertTimesheetData extends AsyncTask<String, String, String> {
@@ -147,7 +158,7 @@ import static com.example.platinum_express.seniorprojectandroid.R.id.op;
                 DateFormat dateFormat = DateFormat.getDateInstance();
                 String parsedDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
                 List<NameValuePair> params = new ArrayList<NameValuePair>();
-                //params.add(new BasicNameValuePair("batch", batch));
+                params.add(new BasicNameValuePair("batch", batchStr));
                 params.add(new BasicNameValuePair("process", processStr));
                 params.add(new BasicNameValuePair("operator", operatorStr));
                 params.add(new BasicNameValuePair("date", parsedDate));
