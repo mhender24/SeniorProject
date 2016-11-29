@@ -44,6 +44,7 @@ public class Timesheet extends AppCompatActivity{
         batch = (EditText) findViewById(R.id.batch_text);
         history = (TableLayout) findViewById(R.id.history);
         username = getIntent().getStringExtra("username");
+        batch.setText(getIntent().getStringExtra("batch"));
         Log.d("username", "username= " + username);
     }
 

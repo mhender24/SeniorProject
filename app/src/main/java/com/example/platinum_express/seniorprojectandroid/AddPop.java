@@ -61,6 +61,7 @@ import android.widget.EditText;
         EditText boards;
         EditText hours;
         Spinner task;
+        EditText batch;
 
 
         String processStr;
@@ -102,6 +103,8 @@ import android.widget.EditText;
             boards = (EditText)findViewById(R.id.board);
             hours = (EditText)findViewById(R.id.hours);
             task = (Spinner)findViewById(R.id.task);
+            batch = (EditText) findViewById(R.id.batch);
+            batch.setText(batchStr.toString());
         }
 
         private void setStrData(){
@@ -111,6 +114,7 @@ import android.widget.EditText;
              boardsStr = boards.getText().toString();
              hoursStr = hours.getText().toString();
              taskStr = task.getSelectedItem().toString();
+             batchStr = batch.getText().toString();
         }
 
         private void setupAdapter(int arrayId, Spinner spinner){
@@ -143,6 +147,7 @@ import android.widget.EditText;
             //TODO Create a new intent to switch back to Timesheet
             Intent intent = new Intent(this, Timesheet.class);
             intent.putExtra("username", operator.getText().toString());
+            intent.putExtra("batch", batch.getText().toString());
             startActivity(intent);
         }
 
