@@ -10,18 +10,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
-
 import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.util.ArrayList;
+
+//import java.util.Date;
+//import org.apache.http.message.BasicNameValuePair;
+//import java.text.DateFormat;
+//import java.text.SimpleDateFormat;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener {
 

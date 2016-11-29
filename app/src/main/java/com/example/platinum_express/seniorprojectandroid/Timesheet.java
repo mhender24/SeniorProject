@@ -1,32 +1,31 @@
 package com.example.platinum_express.seniorprojectandroid;
 
 import android.content.Intent;
-import android.app.Dialog;
-import android.database.Cursor;
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.HorizontalScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
-import com.google.android.gms.common.api.GoogleApiClient;
-
+import java.util.concurrent.ExecutionException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ExecutionException;
 
-import static android.R.attr.entries;
+
+//import java.util.Iterator;
+//import java.util.Map;
+//import java.util.Set;
+//import android.app.Dialog;
+//import android.database.Cursor;
+//import android.net.Uri;
+//import static android.R.attr.entries;
+//import android.widget.HorizontalScrollView;
+//import com.google.android.gms.appindexing.Action;
+//import com.google.android.gms.appindexing.AppIndex;
+//import com.google.android.gms.appindexing.Thing;
+//import com.google.android.gms.common.api.GoogleApiClient;
 
 public class Timesheet extends AppCompatActivity{
 
@@ -50,10 +49,12 @@ public class Timesheet extends AppCompatActivity{
 
     public void displayTimesheet(){
         clearHistory();
-        GetTimesheetData timesheet = new GetTimesheetData(username);
+        GetTimesheetData timesheet = new GetTimesheetData(username, batch.getText().toString());
 
         try {
+            Log.d("before ececute ","b");
             timesheet.execute().get();
+            Log.d("After ececute ","a");
             TableRow tableRow = null;
             for(int i=0; i<timesheet.dataList.size(); i++){
                 HashMap<String, String> entry = timesheet.dataList.get(i);

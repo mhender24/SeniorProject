@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static android.R.attr.name;
+//import static android.R.attr.name;
 
 /**
  * Created by marcelhenderson on 11/13/16.
@@ -34,23 +34,26 @@ public class GetTimesheetData extends AsyncTask<String, String, String> {
     JSONParser jParser = new JSONParser();
     ArrayList<HashMap<String, String>> dataList;
     JSONArray timesheet = null;
+    JSONObject json = null;
     String username;
+    String batch;
 
     // url to get all products list
     private static String url_user_timesheet = "http://www.bgmeng.com/TrackBGMphp/get_timesheet_record.php";
 
-    public GetTimesheetData(String username){
+    public GetTimesheetData(String username, String batch){
         this.username = username;
-        url_user_timesheet += "?username=" +username;
+        this.batch = batch;
+        url_user_timesheet += "?username=" + username +"&batch=" + batch ;
     }
 
     protected String doInBackground(String... args) {
         Log.d("Check", "In doInBackground");
         List<NameValuePair> params = new ArrayList<NameValuePair>();
 
-        JSONObject json = jParser.makeHttpRequest(url_user_timesheet, "GET", params);
+        json = jParser.makeHttpRequest(url_user_timesheet, "GET", params);
         dataList = new ArrayList<HashMap<String, String>>();
-
+        Log.d("json: ", url_user_timesheet);
         Log.d("All Products: ", json.toString());
 
         try {
@@ -60,6 +63,7 @@ public class GetTimesheetData extends AsyncTask<String, String, String> {
                 Log.d("Check", "In success if statement");
 
                 timesheet = json.getJSONArray(JSON_TIMESHEET);
+
                 Log.d("length", " " + timesheet.length());
                 for (int i = 0; i < timesheet.length(); i++) {
                     JSONObject c = timesheet.getJSONObject(i);
@@ -102,6 +106,7 @@ public class GetTimesheetData extends AsyncTask<String, String, String> {
             }
         } catch (JSONException e) {
             e.printStackTrace();
+
         }
 
         return null;

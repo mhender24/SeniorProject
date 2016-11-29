@@ -1,7 +1,6 @@
 package com.example.platinum_express.seniorprojectandroid;
 
-import android.app.Dialog;
-import android.content.Context;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,37 +11,35 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.support.v7.app.AppCompatActivity;
-
+import android.content.Intent;
 import org.apache.http.NameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import java.util.concurrent.ExecutionException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.text.DateFormat;
-import java.util.HashMap;
-import java.util.List;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.Exchanger;
-import java.util.concurrent.ExecutionException;
-
-import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.util.List;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
+//import java.util.ArrayList;
+//import java.util.List;
+//import java.util.concurrent.Exchanger;
+//import org.apache.http.NameValuePair;
+//import org.json.JSONException;
+//import org.json.JSONObject;
+//import android.app.Dialog;
+//import android.content.Context;
+//import android.app.Activity;
+//import android.app.ProgressDialog;
+//import java.util.HashMap;
+//import android.os.AsyncTask;
+//import android.os.Bundle;
+//import android.util.Log;
+//import android.view.View;
+//import android.widget.Button;
+//import android.widget.EditText;
 
 
 
