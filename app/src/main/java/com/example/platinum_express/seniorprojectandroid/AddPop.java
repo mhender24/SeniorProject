@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.support.v7.app.AppCompatActivity;
 
 import org.apache.http.NameValuePair;
 import org.json.JSONException;
