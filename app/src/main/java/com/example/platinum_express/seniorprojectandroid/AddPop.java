@@ -3,6 +3,7 @@ package com.example.platinum_express.seniorprojectandroid;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -71,6 +72,8 @@ import java.util.List;
         String taskStr;
         String batchStr;
 
+        boolean inBackground;
+
         private static final String TAG_SUCCESS = "success";
         private static String url_create_product = "http://www.bgmeng.com/TrackBGMphp/create_timesheet_record.php";
         JSONParser jsonParser = new JSONParser();
@@ -89,8 +92,7 @@ import java.util.List;
 
             setupAdapter(R.array.process_array, process);
             setupAdapter(R.array.task_array, task);
-
-
+            inBackground = false;
         }
 
         private void setViewData(){
@@ -159,6 +161,35 @@ import java.util.List;
             intent.putExtra("batch", batch.getText().toString());
             startActivity(intent);
             finish();
+        }
+
+        @Override
+        public void onResume()
+        {
+            super.onResume();
+            inBackground = false;
+        }
+
+
+        @Override
+        public void onPause()
+        {
+            super.onPause();
+            inBackground = true;
+            new CountDownTimer( 1 * 30 * 1000 , 1000 )
+            {
+                public void onTick(long millisUntilFinished) {}
+
+                public void onFinish()
+                {
+                    if ( inBackground )
+                    {
+                        Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                }
+            }.start();
         }
 
         class InsertTimesheetData extends AsyncTask<String, String, String> {

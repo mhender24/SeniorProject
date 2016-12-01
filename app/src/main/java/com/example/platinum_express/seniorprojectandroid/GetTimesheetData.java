@@ -51,7 +51,7 @@ public class GetTimesheetData extends AsyncTask<String, String, String> {
         url_user_timesheet += "?username=" + username +"&batch=" + batch ;
     }
 
-    protected String doInBackground(String... args, View Timesheet) {
+    protected String doInBackground(String... args) {
         Log.d("Check", "In doInBackground");
         List<NameValuePair> params = new ArrayList<NameValuePair>();
 
@@ -70,8 +70,8 @@ public class GetTimesheetData extends AsyncTask<String, String, String> {
 
                 Log.d("length", " " + timesheet.length());
                 if (timesheet.length() == 0){
-                    Error = (TextView) findViewById(R.id.BatchError);
-                    Error.setVisibility(View.VISIBLE);
+                    //Error = (TextView) findViewById(R.id.BatchError);
+                    //Error.setVisibility(View.VISIBLE);
                 }
                 for (int i = 0; i < timesheet.length(); i++) {
                     JSONObject c = timesheet.getJSONObject(i);

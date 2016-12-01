@@ -1,6 +1,7 @@
 package com.example.platinum_express.seniorprojectandroid;
 
 import android.content.Intent;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,6 +36,7 @@ public class Timesheet extends AppCompatActivity{
     TableLayout history;
     int tableWidths[] = {120, 120, 100, 140, 120, 300};
     String username;
+    boolean inBackground;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,7 @@ public class Timesheet extends AppCompatActivity{
         history = (TableLayout) findViewById(R.id.history);
         username = getIntent().getStringExtra("username");
         batch.setText(getIntent().getStringExtra("batch"));
+        inBackground = false;
         Log.d("username", "username= " + username);
         displayTimesheet();
     }
@@ -134,6 +137,35 @@ public class Timesheet extends AppCompatActivity{
         finish();
         //Dialog dlg = new AddPop(this, this);
         //dlg.show();
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        inBackground = false;
+    }
+
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        inBackground = true;
+        new CountDownTimer( 1 * 30 * 1000 , 1000 )
+        {
+            public void onTick(long millisUntilFinished) {}
+
+            public void onFinish()
+            {
+                if ( inBackground )
+                {
+                    Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        }.start();
     }
 }
 
