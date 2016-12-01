@@ -1,5 +1,6 @@
 package com.example.platinum_express.seniorprojectandroid;
 
+import android.app.Application;
 import android.content.Intent;
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -54,6 +55,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
 
     }
+    @Override
+    public void onBackPressed(){
+        finish();
+    }
 
     public void onClick(View view){
         ConnectivityManager cm =
@@ -78,9 +83,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                     if (Encryption.decrypt(password.getText().toString(), auth.encryptedPassword)) {
                         Intent intent = new Intent(this, Timesheet.class);
                         intent.putExtra("username", username.getText().toString());
-                        password.setText("");
-                        username.setText("");
                         startActivity(intent);
+                        finish();
                     } else
                         error.setText("Invalid Username/Password");
                 } catch (Exception e) {
@@ -91,6 +95,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                     Intent intent = new Intent(this, Timesheet.class);
                     intent.putExtra("username", username.getText().toString());
                     startActivity(intent);
+                    finish();
                 }
             }
         } else {

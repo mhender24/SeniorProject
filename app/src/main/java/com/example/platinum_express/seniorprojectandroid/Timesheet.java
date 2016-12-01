@@ -115,6 +115,7 @@ public class Timesheet extends AppCompatActivity{
     public void onBackPressed(){
         Intent intent1 = new Intent(this, MainActivity.class);
         startActivity(intent1);
+        finish();
     }
     public void search(View view){
         displayTimesheet();
@@ -130,6 +131,7 @@ public class Timesheet extends AppCompatActivity{
         intent1.putExtra("batch", batch.getText().toString());
         intent1.putExtra("username", username.toString());
         startActivity(intent1);
+        finish();
         //Dialog dlg = new AddPop(this, this);
         //dlg.show();
     }

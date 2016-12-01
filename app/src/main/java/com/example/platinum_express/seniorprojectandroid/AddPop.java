@@ -128,6 +128,8 @@ import java.util.List;
             intent.putExtra("username", operator.getText().toString());
             intent.putExtra("batch", batch.getText().toString());
             startActivity(intent);
+            finish();
+
         }
 
         public void onClick(View v) {
@@ -156,6 +158,7 @@ import java.util.List;
             intent.putExtra("username", operator.getText().toString());
             intent.putExtra("batch", batch.getText().toString());
             startActivity(intent);
+            finish();
         }
 
         class InsertTimesheetData extends AsyncTask<String, String, String> {

@@ -188,4 +188,16 @@
             </LinearLayout>
         </HorizontalScrollView>
     </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ff0000"
+        android:id="@+id/BatchError"
+        android:text="No data found with that Batch/Lot#"
+        android:layout_below="@+id/batch_text"
+        android:layout_toLeftOf="@+id/history_search"
+        android:layout_toStartOf="@+id/history_search"
+        android:layout_marginRight="30dp"
+        android:layout_marginEnd="30dp" />
 </RelativeLayout>
