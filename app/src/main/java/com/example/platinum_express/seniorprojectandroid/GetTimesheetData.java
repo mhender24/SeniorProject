@@ -50,7 +50,6 @@ public class GetTimesheetData extends AsyncTask<String, String, String> {
         this.username = username;
         this.batch = batch;
         url_user_timesheet += "?username=" + username +"&batch=" + batch ;
-
     }
 
     protected String doInBackground(String... args) {
