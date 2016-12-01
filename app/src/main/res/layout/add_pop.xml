@@ -6,6 +6,7 @@
     <TableLayout
         android:layout_width="match_parent"
         android:id="@+id/history"
+        android:layout_marginLeft="20dp"
         android:layout_height="500dp">
 
         <TableRow
@@ -102,7 +103,7 @@
 
 
             <TextView
-                android:text="How Many Boards:"
+                android:text="Quantity:"
                 android:id="@+id/textView8"
                 android:layout_width="150dp"
                 android:layout_height="30dp"

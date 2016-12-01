@@ -45,6 +45,7 @@ public class Timesheet extends AppCompatActivity{
         username = getIntent().getStringExtra("username");
         batch.setText(getIntent().getStringExtra("batch"));
         Log.d("username", "username= " + username);
+        displayTimesheet();
     }
 
     public void displayTimesheet(){
@@ -110,7 +111,11 @@ public class Timesheet extends AppCompatActivity{
         return db.getTimeSheetRecordsForUser();
     }
     */
-
+    @Override
+    public void onBackPressed(){
+        Intent intent1 = new Intent(this, MainActivity.class);
+        startActivity(intent1);
+    }
     public void search(View view){
         displayTimesheet();
     }

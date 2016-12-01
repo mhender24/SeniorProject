@@ -67,27 +67,31 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             Log.d("login test", "in login");
             Log.d("login test", "username=" + username.getText().toString());
             Log.d("login test", "password=" + password.getText().toString());
-            try {
-                AuthenticateUser auth = new AuthenticateUser(username.getText().toString());
-                auth.execute().get();
-                Log.d("compare", "enter pass = " + password.getText().toString() + "encrypted= " + auth.encryptedPassword);
-                if(Encryption.decrypt(password.getText().toString(), auth.encryptedPassword)){
+            username.setText(username.getText().toString().trim());
+            if (username.getText().toString().equals("")||password.getText().toString().equals("")){
+                error.setText("Invalid Username/Password");
+            } else {
+                try {
+                    AuthenticateUser auth = new AuthenticateUser(username.getText().toString());
+                    auth.execute().get();
+                    Log.d("compare", "enter pass = " + password.getText().toString() + "encrypted= " + auth.encryptedPassword);
+                    if (Encryption.decrypt(password.getText().toString(), auth.encryptedPassword)) {
+                        Intent intent = new Intent(this, Timesheet.class);
+                        intent.putExtra("username", username.getText().toString());
+                        password.setText("");
+                        username.setText("");
+                        startActivity(intent);
+                    } else
+                        error.setText("Invalid Username/Password");
+                } catch (Exception e) {
+                    Log.d("Error", "Occurred during decryption");
+                    error.setText("Invalid Username/Password");
+                }
+                if (username.getText().toString().equals("a") && password.getText().toString().equals("a")) {
                     Intent intent = new Intent(this, Timesheet.class);
                     intent.putExtra("username", username.getText().toString());
                     startActivity(intent);
                 }
-                else
-                    error.setText("Invalid Username/Password");
-            } catch(Exception e) {
-                Log.d("login test", db.getPass(username.getText().toString()));
-                Log.d("Error", "Occurred during decryption");
-                error.setText("Invalid Username/Password");
-            }
-            if(username.getText().toString().equals("a") && password.getText().toString().equals("a"))
-            {
-                Intent intent = new Intent(this, Timesheet.class);
-                intent.putExtra("username", username.getText().toString());
-                startActivity(intent);
             }
         } else {
             Log.d("netowrk: ", "false");

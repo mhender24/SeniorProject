@@ -15,6 +15,8 @@ import android.content.Intent;
 import org.apache.http.NameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.sql.Time;
 import java.util.concurrent.ExecutionException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -120,6 +122,14 @@ import java.util.List;
             spinner.setAdapter(process_adapter);
         }
 
+        @Override
+        public void onBackPressed(){
+            Intent intent = new Intent(this, Timesheet.class);
+            intent.putExtra("username", operator.getText().toString());
+            intent.putExtra("batch", batch.getText().toString());
+            startActivity(intent);
+        }
+
         public void onClick(View v) {
             //add to database
             setStrData();
@@ -184,4 +194,5 @@ import java.util.List;
                 return null;
             }
         }
+
     }
