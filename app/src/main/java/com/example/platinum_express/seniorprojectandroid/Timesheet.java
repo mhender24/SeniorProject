@@ -54,33 +54,31 @@ public class Timesheet extends AppCompatActivity{
         batch.setText(getIntent().getStringExtra("batch"));
         inBackground = false;
         Log.d("username", "username= " + username);
-        displayTimesheet();
+
         error = (TextView) findViewById(R.id.BatchError);
         error.setVisibility(View.GONE);
+        displayTimesheet();
 
     }
 
     public void displayTimesheet(){
         clearHistory();
         GetTimesheetData timesheet = new GetTimesheetData(username, batch.getText().toString());
-        if (historyLength == 0){
-            error.setVisibility(View.VISIBLE);
-        } else {
-            try {
-                Log.d("before ececute ", "b");
-                timesheet.execute().get();
-                Log.d("After ececute ", "a");
-                TableRow tableRow = null;
-                for (int i = 0; i < timesheet.dataList.size(); i++) {
-                    HashMap<String, String> entry = timesheet.dataList.get(i);
-                    tableRow = createTableRow(entry);
-                    history.addView(tableRow);
-                }
-            } catch (InterruptedException e) {
-                Log.d("Error", "You had an interruptedException:    " + e);
-            } catch (ExecutionException e) {
-                Log.d("Error", "You had an execution exception:    " + e);
+
+        try {
+            Log.d("before ececute ", "b");
+            timesheet.execute().get();
+            Log.d("After ececute ", "a");
+            TableRow tableRow = null;
+            for (int i = 0; i < timesheet.dataList.size(); i++) {
+                HashMap<String, String> entry = timesheet.dataList.get(i);
+                tableRow = createTableRow(entry);
+                history.addView(tableRow);
             }
+        } catch (InterruptedException e) {
+            Log.d("Error", "You had an interruptedException:    " + e);
+        } catch (ExecutionException e) {
+            Log.d("Error", "You had an execution exception:    " + e);
         }
 
     }
@@ -120,12 +118,8 @@ public class Timesheet extends AppCompatActivity{
         return formattedStr;
     }
 
-    /*
-    private Cursor getAllTimeSheetRecordsForUser(){
-        ClientDb db = new ClientDb(this);
-        return db.getTimeSheetRecordsForUser();
-    }
-    */
+
+
     @Override
     public void onBackPressed(){
         Intent intent1 = new Intent(this, MainActivity.class);
@@ -133,7 +127,12 @@ public class Timesheet extends AppCompatActivity{
         finish();
     }
     public void search(View view){
+        error.setVisibility(view.GONE);
         displayTimesheet();
+        if (historyLength == 0){
+            error.setVisibility(View.VISIBLE);
+        }
+
     }
 
     public void clearHistory(){
@@ -150,8 +149,7 @@ public class Timesheet extends AppCompatActivity{
         intent1.putExtra("username", username.toString());
         startActivity(intent1);
         finish();
-        //Dialog dlg = new AddPop(this, this);
-        //dlg.show();
+
     }
 
     @Override
