@@ -9,6 +9,7 @@ import org.apache.http.NameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,7 +40,7 @@ public class GetTimesheetData extends AsyncTask<String, String, String> {
     JSONObject json = null;
     String username;
     String batch;
-    TextView Error;
+    private TextView Error;
 
     // url to get all products list
     private static String url_user_timesheet;
@@ -49,9 +50,10 @@ public class GetTimesheetData extends AsyncTask<String, String, String> {
         this.username = username;
         this.batch = batch;
         url_user_timesheet += "?username=" + username +"&batch=" + batch ;
+
     }
 
-    protected String doInBackground(String... args, View Timesheet) {
+    protected String doInBackground(String... args) {
         Log.d("Check", "In doInBackground");
         List<NameValuePair> params = new ArrayList<NameValuePair>();
 
@@ -69,10 +71,11 @@ public class GetTimesheetData extends AsyncTask<String, String, String> {
                 timesheet = json.getJSONArray(JSON_TIMESHEET);
 
                 Log.d("length", " " + timesheet.length());
-                if (timesheet.length() == 0){
-                    Error = (TextView) findViewById(R.id.BatchError);
-                    Error.setVisibility(View.VISIBLE);
-                }
+
+
+
+
+                Timesheet.setHistoryLength(timesheet.length());
                 for (int i = 0; i < timesheet.length(); i++) {
                     JSONObject c = timesheet.getJSONObject(i);
 

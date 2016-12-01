@@ -30,11 +30,17 @@ import java.util.HashMap;
 public class Timesheet extends AppCompatActivity{
 
     private final int DATE_POSITION_IN_ARRAY = 2;
-
+    static int historyLength = -1;
     EditText batch;
     TableLayout history;
     int tableWidths[] = {120, 120, 100, 140, 120, 300};
     String username;
+    TextView error;
+
+    public Timesheet(){
+
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,28 +52,33 @@ public class Timesheet extends AppCompatActivity{
         batch.setText(getIntent().getStringExtra("batch"));
         Log.d("username", "username= " + username);
         displayTimesheet();
+        error = (TextView) findViewById(R.id.BatchError);
+        error.setVisibility(View.GONE);
+
     }
 
     public void displayTimesheet(){
         clearHistory();
         GetTimesheetData timesheet = new GetTimesheetData(username, batch.getText().toString());
-
-        try {
-            Log.d("before ececute ","b");
-            timesheet.execute().get();
-            Log.d("After ececute ","a");
-            TableRow tableRow = null;
-            for(int i=0; i<timesheet.dataList.size(); i++){
-                HashMap<String, String> entry = timesheet.dataList.get(i);
-                tableRow = createTableRow(entry);
-                history.addView(tableRow);
+        if (historyLength == 0){
+            error.setVisibility(View.VISIBLE);
+        } else {
+            try {
+                Log.d("before ececute ", "b");
+                timesheet.execute().get();
+                Log.d("After ececute ", "a");
+                TableRow tableRow = null;
+                for (int i = 0; i < timesheet.dataList.size(); i++) {
+                    HashMap<String, String> entry = timesheet.dataList.get(i);
+                    tableRow = createTableRow(entry);
+                    history.addView(tableRow);
+                }
+            } catch (InterruptedException e) {
+                Log.d("Error", "You had an interruptedException:    " + e);
+            } catch (ExecutionException e) {
+                Log.d("Error", "You had an execution exception:    " + e);
             }
-        } catch(InterruptedException e){
-            Log.d("Error", "You had an interruptedException:    " + e );
-        } catch(ExecutionException e){
-            Log.d("Error", "You had an execution exception:    " + e );
         }
-
     }
 
 
@@ -126,6 +137,9 @@ public class Timesheet extends AppCompatActivity{
             history.removeAllViews();
     }
 
+    public static void setHistoryLength(int length){
+        Timesheet.historyLength = length;
+    }
     public void add_entry(View view){
         Intent intent1 = new Intent(this, AddPop.class);
         intent1.putExtra("batch", batch.getText().toString());
