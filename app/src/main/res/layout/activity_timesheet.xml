@@ -192,7 +192,6 @@
         android:id="@+id/BatchError"
         android:text="No data found with that Batch/Lot#"
         android:textSize="32sp"
-        android:layout_alignBottom="@+id/batch_text"
-        android:layout_toLeftOf="@+id/history_search"
-        android:layout_toStartOf="@+id/history_search" />
+        android:layout_above="@+id/batch_text"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
