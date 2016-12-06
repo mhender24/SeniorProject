@@ -34,7 +34,7 @@ public class Timesheet extends AppCompatActivity{
     static int historyLength = -1;
     EditText batch;
     TableLayout history;
-    int tableWidths[] = {120, 120, 100, 140, 120, 300};
+    int tableWidths[] = {180, 160, 140, 160, 120, 320};
     String username;
     TextView error;
 
@@ -73,6 +73,7 @@ public class Timesheet extends AppCompatActivity{
             for (int i = 0; i < timesheet.dataList.size(); i++) {
                 HashMap<String, String> entry = timesheet.dataList.get(i);
                 tableRow = createTableRow(entry);
+
                 history.addView(tableRow);
             }
         } catch (InterruptedException e) {
@@ -95,12 +96,15 @@ public class Timesheet extends AppCompatActivity{
 
     private TextView createTimesheetTextViewRecord(HashMap<String, String> entry, int j){
         TextView textView = new TextView(this);
+        textView.setTextSize(22);
+
         String[] keys = {"Process", "Operator", "Date", "Boards", "Hours", "Task"};
         if(j==DATE_POSITION_IN_ARRAY)
             textView.setText(formatDate(entry.get("Date")));
         else
             textView.setText(entry.get(keys[j]));
-        textView.setPadding(12, 5, 0, 0);
+        textView.setPadding(12, 8, 0, 0);
+
         textView.setWidth(tableWidths[j]);
         return textView;
     }
