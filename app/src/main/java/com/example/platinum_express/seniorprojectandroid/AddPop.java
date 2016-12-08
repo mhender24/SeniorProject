@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.widget.TextView;
 
 import org.apache.http.NameValuePair;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -56,6 +57,10 @@ import java.util.List;
 
     public class AddPop extends AppCompatActivity implements OnClickListener
     {
+
+        private static String get_tasks_url = "http://www.bgmeng.com/TrackBGMphp/get_tasks.php";
+        private static String get_process_url = "http://www.bgmeng.com/TrackBGMphp/get_process.php";
+
         Timesheet timesheet;
 
 
@@ -96,8 +101,28 @@ import java.util.List;
             Button b = (Button) findViewById(R.id.submit);
             b.setOnClickListener(this);
 
-            setupAdapter(R.array.process_array, process);
-            setupAdapter(R.array.task_array, task);
+            GetTaskData taskClass = new GetTaskData();
+            GetProcessData processClass = new GetProcessData();
+
+            try {
+                ArrayList<String> taskArr = (ArrayList)taskClass.execute().get();
+                ArrayAdapter<String> taskArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, taskArr);
+                taskArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
+
+                ArrayList<String> processArr = (ArrayList)processClass.execute().get();
+                ArrayAdapter<String> processArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, processArr);
+                processArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
+
+                task.setAdapter(taskArrayAdapter);
+                process.setAdapter(processArrayAdapter);
+
+            } catch(Exception e){
+                Log.d("Error", "Interrupted Exception occurred in retrieving Spinner data");
+            }
+
+
+            //setupAdapter(R.array.process_array, process);
+            //setupAdapter(R.array.task_array, task);
             inBackground = false;
         }
 
@@ -198,6 +223,11 @@ import java.util.List;
             inBackground = false;
         }
 
+        public void onDestroy(){
+            super.onStop();
+            inBackground = false;
+        }
+
 
         @Override
         public void onPause()
@@ -262,6 +292,76 @@ import java.util.List;
                 }
 
                 return null;
+            }
+        }
+
+        private class GetTaskData extends AsyncTask<String, Void, List<String> >  {
+
+
+            protected ArrayList<String> doInBackground(String... args) {
+                List<NameValuePair> params = new ArrayList<NameValuePair>();
+                ArrayList<String> tasksArr = null;
+                JSONObject task_json = jsonParser.makeHttpRequest(get_tasks_url,
+                        "POST", params);
+
+               // JSONObject process_json = jsonParser.makeHttpRequest(get_process_url,
+                //        "POST", params);
+
+                //Log.d("Create Response", json.toString());
+
+                try {
+                    int task_success = task_json.getInt(TAG_SUCCESS);
+                  //  int process_success = process_json.getInt(TAG_SUCCESS);
+                    if (task_success == 1) {
+                        JSONArray tasks = task_json.getJSONArray("data");
+                        tasksArr = new ArrayList<String>();
+                        for(int i=0; i<tasks.length(); i++){
+                            JSONObject c = tasks.getJSONObject(i);
+                            tasksArr.add(c.getString("Task"));
+                        }
+
+                    } else {
+                        Log.d("Error", "Insert Failed");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                return tasksArr;
+            }
+        }
+
+        private class GetProcessData extends AsyncTask<String, Void, List<String> >  {
+
+            protected ArrayList<String> doInBackground(String... args) {
+                List<NameValuePair> params = new ArrayList<NameValuePair>();
+                ArrayList<String> processArr = null;
+                JSONObject process_json = jsonParser.makeHttpRequest(get_process_url,
+                        "POST", params);
+
+                // JSONObject process_json = jsonParser.makeHttpRequest(get_process_url,
+                //        "POST", params);
+
+                //Log.d("Create Response", json.toString());
+
+                try {
+                    //int task_success = task_json.getInt(TAG_SUCCESS);
+                      int process_success = process_json.getInt(TAG_SUCCESS);
+                    if (process_success == 1) {
+                        JSONArray process = process_json.getJSONArray("data");
+                        processArr = new ArrayList<String>();
+                        for(int i=0; i<process.length(); i++){
+                            JSONObject c = process.getJSONObject(i);
+                            processArr.add(c.getString("Process"));
+                        }
+                    } else {
+                        Log.d("Error", "Insert Failed");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                return processArr;
             }
         }
 

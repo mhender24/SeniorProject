@@ -1,6 +1,7 @@
 package com.example.platinum_express.seniorprojectandroid;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,9 +11,22 @@ import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
+
+import static com.example.platinum_express.seniorprojectandroid.JSONParser.json;
 
 
 //import java.util.Iterator;
@@ -31,6 +45,7 @@ import java.util.HashMap;
 public class Timesheet extends AppCompatActivity{
 
     private final int DATE_POSITION_IN_ARRAY = 2;
+
     static int historyLength = -1;
     EditText batch;
     TableLayout history;
@@ -40,6 +55,8 @@ public class Timesheet extends AppCompatActivity{
     CountDownTimer timeout;
     boolean inBackground;
 
+
+    JSONParser jsonParser = new JSONParser();
 
     public Timesheet(){
 
@@ -124,7 +141,10 @@ public class Timesheet extends AppCompatActivity{
         return formattedStr;
     }
 
-
+    public void onStop(){
+        super.onStop();
+        inBackground = false;
+    }
 
     @Override
     public void onBackPressed(){
@@ -154,6 +174,7 @@ public class Timesheet extends AppCompatActivity{
     public static void setHistoryLength(int length){
         Timesheet.historyLength = length;
     }
+
     public void add_entry(View view){
         Intent intent1 = new Intent(this, AddPop.class);
         intent1.putExtra("batch", batch.getText().toString());
@@ -207,5 +228,7 @@ public class Timesheet extends AppCompatActivity{
             }
         }.start();
     }
+
+
 }
 
