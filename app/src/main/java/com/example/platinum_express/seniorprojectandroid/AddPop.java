@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
+import android.widget.TextView;
+
 import org.apache.http.NameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,6 +26,8 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.text.DateFormat;
 import org.apache.http.message.BasicNameValuePair;
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 //import java.util.ArrayList;
@@ -62,6 +66,7 @@ import java.util.List;
         EditText hours;
         Spinner task;
         EditText batch;
+        TextView error;
 
 
         String processStr;
@@ -72,6 +77,7 @@ import java.util.List;
         String taskStr;
         String batchStr;
 
+        CountDownTimer timeout;
         boolean inBackground;
 
         private static final String TAG_SUCCESS = "success";
@@ -129,6 +135,11 @@ import java.util.List;
             Intent intent = new Intent(this, Timesheet.class);
             intent.putExtra("username", operator.getText().toString());
             intent.putExtra("batch", batch.getText().toString());
+            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            timeout.cancel();
+            finishAffinity();
+            inBackground = false;
+
             startActivity(intent);
             finish();
 
@@ -139,34 +150,51 @@ import java.util.List;
             setStrData();
             DateFormat dateFormat = DateFormat.getDateInstance();
             String parsedDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-            //ClientDb db = new ClientDb(getContext());
-            //int parsedBoards = Integer.parseInt(boards.getText().toString().trim());
-            //int parsedHours = Integer.parseInt(hours.getText().toString().trim());
-            //db.testInsertIntoTimesheet(process.getSelectedItem().toString(), parsedDate,
-             //       parsedBoards, parsedHours, task.getSelectedItem().toString());
-            InsertTimesheetData insert = new InsertTimesheetData();
-            try {
-                insert.execute().get();
-            } catch(InterruptedException e){
-                Log.d("Error", "You had an interruptedException:    " + e );
-            } catch(ExecutionException e){
-                Log.d("Error", "You had an execution exception:    " + e );
-            }
-            //timesheet.displayTimesheet();
-            Log.d("Mine", "Exiting dialog box");
 
-            //TODO Create a new intent to switch back to Timesheet
-            Intent intent = new Intent(this, Timesheet.class);
-            intent.putExtra("username", operator.getText().toString());
-            intent.putExtra("batch", batch.getText().toString());
-            startActivity(intent);
-            finish();
+            if (Float.parseFloat(hours.getText().toString())>12) {
+                //TODO Throw error message to screen
+                error = (TextView) findViewById(R.id.error);
+                error.setText("Number of hours must be less than 12");
+            } else if(Float.parseFloat(hours.getText().toString())<0){
+                //TODO Throw error message to screen
+                error = (TextView) findViewById(R.id.error);
+                error.setText("Number of hours can't be less than 0");
+
+            } else if (Integer.parseInt(boards.getText().toString())<0) {
+                //TODO Throw error message to screen
+                error = (TextView) findViewById(R.id.error);
+                error.setText("Number of boards can't be less than 0");
+
+            } else{
+                InsertTimesheetData insert = new InsertTimesheetData();
+                try {
+                    insert.execute().get();
+                } catch (InterruptedException e) {
+                    Log.d("Error", "You had an interruptedException:    " + e);
+                } catch (ExecutionException e) {
+                    Log.d("Error", "You had an execution exception:    " + e);
+                }
+                //timesheet.displayTimesheet();
+                Log.d("Mine", "Exiting dialog box");
+                Intent intent = new Intent(this, Timesheet.class);
+                intent.putExtra("username", operator.getText().toString());
+                intent.putExtra("batch", batch.getText().toString());
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                inBackground = false;
+
+                finishAffinity();
+                startActivity(intent);
+                finish();
+            }
         }
 
         @Override
         public void onResume()
         {
             super.onResume();
+            if (inBackground) {
+                timeout.cancel();
+            }
             inBackground = false;
         }
 
@@ -176,17 +204,25 @@ import java.util.List;
         {
             super.onPause();
             inBackground = true;
-            new CountDownTimer( 1 * 30 * 1000 , 1000 )
+            timeout = new CountDownTimer( 1 * 30 * 1000 , 1000 )
             {
+
                 public void onTick(long millisUntilFinished) {}
 
                 public void onFinish()
                 {
                     if ( inBackground )
                     {
+
                         Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        finishAffinity();
+                        timeout.cancel();
+
                         startActivity(intent);
                         finish();
+                    } else {
+                        timeout.cancel();
                     }
                 }
             }.start();

@@ -37,12 +37,14 @@ public class Timesheet extends AppCompatActivity{
     int tableWidths[] = {180, 160, 140, 160, 120, 320};
     String username;
     TextView error;
+    CountDownTimer timeout;
+    boolean inBackground;
+
 
     public Timesheet(){
 
     }
 
-    boolean inBackground;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +129,11 @@ public class Timesheet extends AppCompatActivity{
     @Override
     public void onBackPressed(){
         Intent intent1 = new Intent(this, MainActivity.class);
+        intent1.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        timeout.cancel();
+        inBackground = false;
+
+        finishAffinity();
         startActivity(intent1);
         finish();
     }
@@ -151,6 +158,13 @@ public class Timesheet extends AppCompatActivity{
         Intent intent1 = new Intent(this, AddPop.class);
         intent1.putExtra("batch", batch.getText().toString());
         intent1.putExtra("username", username.toString());
+        intent1.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        if (inBackground){
+            timeout.cancel();
+        }
+        inBackground = false;
+
+        finishAffinity();
         startActivity(intent1);
         finish();
 
@@ -160,6 +174,9 @@ public class Timesheet extends AppCompatActivity{
     public void onResume()
     {
         super.onResume();
+        if (inBackground) {
+            timeout.cancel();
+        }
         inBackground = false;
     }
 
@@ -169,7 +186,7 @@ public class Timesheet extends AppCompatActivity{
     {
         super.onPause();
         inBackground = true;
-        new CountDownTimer( 1 * 30 * 1000 , 1000 )
+        timeout = new CountDownTimer( 1 * 30 * 1000 , 1000 )
         {
             public void onTick(long millisUntilFinished) {}
 
@@ -177,9 +194,15 @@ public class Timesheet extends AppCompatActivity{
             {
                 if ( inBackground )
                 {
+
                     Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    finishAffinity();
+                    timeout.cancel();
                     startActivity(intent);
                     finish();
+                } else{
+                    timeout.cancel();
                 }
             }
         }.start();

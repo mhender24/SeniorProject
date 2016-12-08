@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     }
     @Override
     public void onBackPressed(){
-        finish();
+        System.exit(0);
     }
 
     public void onClick(View view){
@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                     if (Encryption.decrypt(password.getText().toString(), auth.encryptedPassword)) {
                         Intent intent = new Intent(this, Timesheet.class);
                         intent.putExtra("username", username.getText().toString());
+                        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                         finish();
                     } else
@@ -94,6 +95,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                 if (username.getText().toString().equals("a") && password.getText().toString().equals("a")) {
                     Intent intent = new Intent(this, Timesheet.class);
                     intent.putExtra("username", username.getText().toString());
+                    intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     finish();
                 }
