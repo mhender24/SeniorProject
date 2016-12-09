@@ -2,8 +2,8 @@ package com.example.platinum_express.seniorprojectandroid;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.CountDownTimer;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +14,17 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -47,6 +58,7 @@ public class Timesheet extends AppCompatActivity{
 
     }
 
+    CountDownTimer timeout;
     boolean inBackground;
 
     @Override
@@ -75,24 +87,10 @@ public class Timesheet extends AppCompatActivity{
             timesheet.execute().get();
             Log.d("After ececute ", "a");
             TableRow tableRow = null;
-            tableRowList.clear();
             for (int i = 0; i < timesheet.dataList.size(); i++) {
                 HashMap<String, String> entry = timesheet.dataList.get(i);
                 tableRow = createTableRow(entry);
-                tableRow.setId(i);
-                tableRow.setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View v)
-                    {
-                        for(int i = 0; i < history.getChildCount(); i++)
-                        {
-                            View rowView = history.getChildAt(i);
-                            rowView.setBackgroundColor(Color.WHITE);
-                        }
-                        v.setBackgroundColor(Color.CYAN);
-                    }
-                });
+
                 history.addView(tableRow);
             }
         } catch (InterruptedException e) {
@@ -100,7 +98,9 @@ public class Timesheet extends AppCompatActivity{
         } catch (ExecutionException e) {
             Log.d("Error", "You had an execution exception:    " + e);
         }
+
     }
+
 
     private TableRow createTableRow(HashMap<String, String> entry){
         TableRow tableRow = new TableRow(this);

@@ -22,20 +22,6 @@
         android:layout_marginStart="22dp" />
 
 
-    <Button
-        android:text="Add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="22dp"
-        android:id="@+id/add_btn"
-        android:minWidth="120dp"
-        android:onClick="add_entry"
-        android:layout_marginLeft="69dp"
-        android:layout_marginStart="69dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/textView"
-        android:layout_alignStart="@+id/textView" />
-
     <TextView
         android:imeOptions="flagNoExtractUi"
         android:text="Batch/Lot #:"
@@ -193,5 +179,16 @@
         android:text="No data found with that Batch/Lot#"
         android:textSize="32sp"
         android:layout_above="@+id/batch_text"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
+        android:id="@+id/add_btn"
+        android:minWidth="120dp"
+        android:onClick="add_entry"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>
