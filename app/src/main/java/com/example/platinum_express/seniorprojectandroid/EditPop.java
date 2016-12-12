@@ -146,15 +146,15 @@ public class EditPop extends AppCompatActivity implements View.OnClickListener
 
     @Override
     public void onBackPressed(){
-        Intent intent = new Intent(this, Timesheet.class);
-        intent.putExtra("username", operator.getText().toString());
-        intent.putExtra("batch", batch.getText().toString());
-        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        timeout.cancel();
-        finishAffinity();
-        inBackground = false;
-
-        startActivity(intent);
+//        Intent intent = new Intent(this, Timesheet.class);
+//        intent.putExtra("username", operator.getText().toString());
+//        intent.putExtra("batch", batch.getText().toString());
+//        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        timeout.cancel();
+//        finishAffinity();
+//        inBackground = false;
+//
+//        startActivity(intent);
         finish();
 
     }
@@ -257,11 +257,10 @@ public class EditPop extends AppCompatActivity implements View.OnClickListener
                 {
 
                     Intent intent = new Intent(getBaseContext(), MainActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     finishAffinity();
                     timeout.cancel();
-                    inBackground = false;
+
                     startActivity(intent);
                     finish();
                 } else {
