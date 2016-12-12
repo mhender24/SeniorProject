@@ -76,6 +76,7 @@ public class Timesheet extends AppCompatActivity{
                     @Override
                     public void onClick(View v)
                     {
+                        
                         for(int i = 0; i < history.getChildCount(); i++)
                         {
                             View view = history.getChildAt(i);
