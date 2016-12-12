@@ -29,24 +29,6 @@ import org.apache.http.message.BasicNameValuePair;
 
 import java.util.List;
 
-//import java.util.ArrayList;
-//import java.util.List;
-//import java.util.concurrent.Exchanger;
-//import org.apache.http.NameValuePair;
-//import org.json.JSONException;
-//import org.json.JSONObject;
-//import android.app.Dialog;
-//import android.content.Context;
-//import android.app.Activity;
-//import android.app.ProgressDialog;
-//import java.util.HashMap;
-//import android.os.AsyncTask;
-//import android.os.Bundle;
-//import android.util.Log;
-//import android.view.View;
-//import android.widget.Button;
-//import android.widget.EditText;
-
 
 
 /**
@@ -118,9 +100,6 @@ import java.util.List;
                 Log.d("Error", "Interrupted Exception occurred in retrieving Spinner data");
             }
 
-
-            //setupAdapter(R.array.process_array, process);
-            //setupAdapter(R.array.task_array, task);
             inBackground = false;
         }
 
@@ -198,7 +177,7 @@ import java.util.List;
                 } catch (ExecutionException e) {
                     Log.d("Error", "You had an execution exception:    " + e);
                 }
-                //timesheet.displayTimesheet();
+
                 Log.d("Mine", "Exiting dialog box");
                 Intent intent = new Intent(this, Timesheet.class);
                 intent.putExtra("username", operator.getText().toString());
@@ -213,50 +192,55 @@ import java.util.List;
             }
         }
 
-        @Override
-        public void onResume()
-        {
-            super.onResume();
-            if (inBackground) {
-                timeout.cancel();
-            }
-            inBackground = false;
-        }
-
-        public void onDestroy(){
-            super.onStop();
-            inBackground = false;
-        }
-
-
-        @Override
-        public void onPause()
-        {
-            super.onPause();
-            inBackground = true;
-            timeout = new CountDownTimer( 1 * 30 * 1000 , 1000 )
-            {
-
-                public void onTick(long millisUntilFinished) {}
-
-                public void onFinish()
-                {
-                    if ( inBackground )
-                    {
-
-                        Intent intent = new Intent(getBaseContext(), MainActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        finishAffinity();
-                        timeout.cancel();
-
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        timeout.cancel();
-                    }
-                }
-            }.start();
-        }
+//        @Override
+//        public void onResume()
+//        {
+//            super.onResume();
+//            if (inBackground) {
+//                timeout.cancel();
+//            }
+//            inBackground = false;
+//        }
+//
+//        public void onDestroy(){
+//            super.onStop();
+//            inBackground = false;
+//        }
+//
+//        @Override
+//        protected void onStop() {
+//            super.onStop();
+//            finish();
+//        }
+//
+//        @Override
+//        public void onPause()
+//        {
+//            super.onPause();
+//            inBackground = true;
+//            timeout = new CountDownTimer( 1 * 30 * 1000 , 1000 )
+//            {
+//
+//                public void onTick(long millisUntilFinished) {}
+//
+//                public void onFinish()
+//                {
+//                    if ( inBackground )
+//                    {
+//
+//                        Intent intent = new Intent(getBaseContext(), MainActivity.class);
+//                        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                        finishAffinity();
+//                        timeout.cancel();
+//
+//                        startActivity(intent);
+//                        finish();
+//                    } else {
+//                        timeout.cancel();
+//                    }
+//                }
+//            }.start();
+//        }
 
         class InsertTimesheetData extends AsyncTask<String, String, String> {
 
@@ -304,14 +288,10 @@ import java.util.List;
                 JSONObject task_json = jsonParser.makeHttpRequest(get_tasks_url,
                         "POST", params);
 
-               // JSONObject process_json = jsonParser.makeHttpRequest(get_process_url,
-                //        "POST", params);
 
-                //Log.d("Create Response", json.toString());
 
                 try {
                     int task_success = task_json.getInt(TAG_SUCCESS);
-                  //  int process_success = process_json.getInt(TAG_SUCCESS);
                     if (task_success == 1) {
                         JSONArray tasks = task_json.getJSONArray("data");
                         tasksArr = new ArrayList<String>();
@@ -339,13 +319,9 @@ import java.util.List;
                 JSONObject process_json = jsonParser.makeHttpRequest(get_process_url,
                         "POST", params);
 
-                // JSONObject process_json = jsonParser.makeHttpRequest(get_process_url,
-                //        "POST", params);
 
-                //Log.d("Create Response", json.toString());
 
                 try {
-                    //int task_success = task_json.getInt(TAG_SUCCESS);
                       int process_success = process_json.getInt(TAG_SUCCESS);
                     if (process_success == 1) {
                         JSONArray process = process_json.getJSONArray("data");

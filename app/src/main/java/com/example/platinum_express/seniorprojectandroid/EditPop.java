@@ -1,6 +1,5 @@
 package com.example.platinum_express.seniorprojectandroid;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,7 +14,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,7 +28,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -112,8 +109,7 @@ public class EditPop extends AppCompatActivity implements View.OnClickListener
             Log.e("Error", "Error occurred while loading row info ");
         }
 
-        //setupAdapter(R.array.process_array, process);
-        //setupAdapter(R.array.task_array, task);
+
         inBackground = false;
     }
 
@@ -146,15 +142,15 @@ public class EditPop extends AppCompatActivity implements View.OnClickListener
 
     @Override
     public void onBackPressed(){
-//        Intent intent = new Intent(this, Timesheet.class);
-//        intent.putExtra("username", operator.getText().toString());
-//        intent.putExtra("batch", batch.getText().toString());
-//        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//        timeout.cancel();
-//        finishAffinity();
-//        inBackground = false;
-//
-//        startActivity(intent);
+        Intent intent = new Intent(this, Timesheet.class);
+        intent.putExtra("username", operator.getText().toString());
+        intent.putExtra("batch", batch.getText().toString());
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        timeout.cancel();
+        finishAffinity();
+        inBackground = false;
+
+        startActivity(intent);
         finish();
 
     }
@@ -225,50 +221,55 @@ public class EditPop extends AppCompatActivity implements View.OnClickListener
         }
     }
 
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-        if (inBackground) {
-            timeout.cancel();
-        }
-        inBackground = false;
-    }
-
-    public void onDestroy(){
-        super.onStop();
-        inBackground = false;
-    }
-
-
-    @Override
-    public void onPause()
-    {
-        super.onPause();
-        inBackground = true;
-        timeout = new CountDownTimer( 1 * 30 * 1000 , 1000 )
-        {
-
-            public void onTick(long millisUntilFinished) {}
-
-            public void onFinish()
-            {
-                if ( inBackground )
-                {
-
-                    Intent intent = new Intent(getBaseContext(), MainActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    finishAffinity();
-                    timeout.cancel();
-
-                    startActivity(intent);
-                    finish();
-                } else {
-                    timeout.cancel();
-                }
-            }
-        }.start();
-    }
+//    @Override
+//    public void onResume()
+//    {
+//        super.onResume();
+//        if (inBackground) {
+//            timeout.cancel();
+//        }
+//        inBackground = false;
+//    }
+//
+//    public void onDestroy(){
+//        super.onStop();
+//        inBackground = false;
+//    }
+//
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        finish();
+//    }
+//
+//    @Override
+//    public void onPause()
+//    {
+//        super.onPause();
+//        inBackground = true;
+//        timeout = new CountDownTimer( 1 * 30 * 1000 , 1000 )
+//        {
+//
+//            public void onTick(long millisUntilFinished) {}
+//
+//            public void onFinish()
+//            {
+//                if ( inBackground )
+//                {
+//
+//                    Intent intent = new Intent(getBaseContext(), MainActivity.class);
+//                    intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                    finishAffinity();
+//                    timeout.cancel();
+//
+//                    startActivity(intent);
+//                    finish();
+//                } else {
+//                    timeout.cancel();
+//                }
+//            }
+//        }.start();
+//    }
 
     private class GetTaskData extends AsyncTask<String, Void, List<String> >  {
 
@@ -279,14 +280,9 @@ public class EditPop extends AppCompatActivity implements View.OnClickListener
             JSONObject task_json = jsonParser.makeHttpRequest(get_tasks_url,
                     "POST", params);
 
-            // JSONObject process_json = jsonParser.makeHttpRequest(get_process_url,
-            //        "POST", params);
-
-            //Log.d("Create Response", json.toString());
-
             try {
                 int task_success = task_json.getInt(TAG_SUCCESS);
-                //  int process_success = process_json.getInt(TAG_SUCCESS);
+
                 if (task_success == 1) {
                     JSONArray tasks = task_json.getJSONArray("data");
                     tasksArr = new ArrayList<String>();
@@ -314,13 +310,9 @@ public class EditPop extends AppCompatActivity implements View.OnClickListener
             JSONObject process_json = jsonParser.makeHttpRequest(get_process_url,
                     "POST", params);
 
-            // JSONObject process_json = jsonParser.makeHttpRequest(get_process_url,
-            //        "POST", params);
 
-            //Log.d("Create Response", json.toString());
 
             try {
-                //int task_success = task_json.getInt(TAG_SUCCESS);
                 int process_success = process_json.getInt(TAG_SUCCESS);
                 if (process_success == 1) {
                     JSONArray process = process_json.getJSONArray("data");

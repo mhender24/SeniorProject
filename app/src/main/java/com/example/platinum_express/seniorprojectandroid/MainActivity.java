@@ -22,17 +22,11 @@ import java.util.List;
 import java.util.ArrayList;
 
 
-//import java.util.Date;
-//import org.apache.http.message.BasicNameValuePair;
-//import java.text.DateFormat;
-//import java.text.SimpleDateFormat;
-
 public class MainActivity extends AppCompatActivity implements OnClickListener {
 
     private static final String TAG_SUCCESS = "success";
     private static final String JSON_DATA = "data";
     private static final String JSON_PASSWORD = "User_Password_PBKDF2";
-    //private static String url_create_product = "http://10.0.2.2/SeniorProjectPHP/create_timesheet_record.php";
     JSONParser jsonParser = new JSONParser();
 
     ClientDb db = new ClientDb(this);

@@ -2,7 +2,6 @@ package com.example.platinum_express.seniorprojectandroid;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,33 +14,12 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
 
-//import java.util.Iterator;
-//import java.util.Map;
-//import java.util.Set;
-//import android.app.Dialog;
-//import android.database.Cursor;
-//import android.net.Uri;
-//import static android.R.attr.entries;
-//import android.widget.HorizontalScrollView;
-//import com.google.android.gms.appindexing.Action;
-//import com.google.android.gms.appindexing.AppIndex;
-//import com.google.android.gms.appindexing.Thing;
-//import com.google.android.gms.common.api.GoogleApiClient;
+
 
 public class Timesheet extends AppCompatActivity{
 
@@ -193,7 +171,7 @@ public class Timesheet extends AppCompatActivity{
         intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         inBackground = false;
         startActivity(intent1);
-        //finish();
+        finish();
 
     }
 
@@ -207,37 +185,42 @@ public class Timesheet extends AppCompatActivity{
         intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         inBackground = false;
         startActivity(intent1);
-        //finish();
+        finish();
     }
 
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-        inBackground = false;
-    }
-
-
-    @Override
-    public void onPause()
-    {
-        super.onPause();
-        inBackground = true;
-        new CountDownTimer( 1 * 30 * 1000 , 1000 )
-        {
-            public void onTick(long millisUntilFinished) {}
-
-            public void onFinish()
-            {
-                if ( inBackground )
-                {
-                    Intent intent = new Intent(getBaseContext(), MainActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                    finish();
-                }
-            }
-        }.start();
-    }
+//    @Override
+//    public void onResume()
+//    {
+//        super.onResume();
+//        inBackground = false;
+//    }
+//
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        finish();
+//    }
+//
+//    @Override
+//    public void onPause()
+//    {
+//        super.onPause();
+//        inBackground = true;
+//        new CountDownTimer( 1 * 30 * 1000 , 1000 )
+//        {
+//            public void onTick(long millisUntilFinished) {}
+//
+//            public void onFinish()
+//            {
+//                if ( inBackground )
+//                {
+//                    Intent intent = new Intent(getBaseContext(), MainActivity.class);
+//                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                    startActivity(intent);
+//                    finish();
+//                }
+//            }
+//        }.start();
+//    }
 }
 
