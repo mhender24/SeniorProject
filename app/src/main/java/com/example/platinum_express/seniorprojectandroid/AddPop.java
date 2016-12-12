@@ -155,7 +155,7 @@ import java.util.List;
 
         @Override
         public void onBackPressed(){
-            Intent intent = new Intent(this, Timesheet.class);
+     /*       Intent intent = new Intent(this, Timesheet.class);
             intent.putExtra("username", operator.getText().toString());
             intent.putExtra("batch", batch.getText().toString());
             intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -163,7 +163,7 @@ import java.util.List;
             finishAffinity();
             inBackground = false;
 
-            startActivity(intent);
+            startActivity(intent);*/
             finish();
 
         }
@@ -199,14 +199,14 @@ import java.util.List;
                 }
                 //timesheet.displayTimesheet();
                 Log.d("Mine", "Exiting dialog box");
-                Intent intent = new Intent(this, Timesheet.class);
-                intent.putExtra("username", operator.getText().toString());
-                intent.putExtra("batch", batch.getText().toString());
-                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                inBackground = false;
-
-                finishAffinity();
-                startActivity(intent);
+//                Intent intent = new Intent(this, Timesheet.class);
+//                intent.putExtra("username", operator.getText().toString());
+//                intent.putExtra("batch", batch.getText().toString());
+//                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                inBackground = false;
+//
+//                finishAffinity();
+//                startActivity(intent);
                 finish();
             }
         }

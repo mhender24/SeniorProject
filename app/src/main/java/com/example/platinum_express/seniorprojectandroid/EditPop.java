@@ -146,15 +146,15 @@ public class EditPop extends AppCompatActivity implements View.OnClickListener
 
     @Override
     public void onBackPressed(){
-        Intent intent = new Intent(this, Timesheet.class);
-        intent.putExtra("username", operator.getText().toString());
-        intent.putExtra("batch", batch.getText().toString());
-        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        timeout.cancel();
-        finishAffinity();
-        inBackground = false;
-
-        startActivity(intent);
+//        Intent intent = new Intent(this, Timesheet.class);
+//        intent.putExtra("username", operator.getText().toString());
+//        intent.putExtra("batch", batch.getText().toString());
+//        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        timeout.cancel();
+//        finishAffinity();
+//        inBackground = false;
+//
+//        startActivity(intent);
         finish();
 
     }
@@ -184,14 +184,14 @@ public class EditPop extends AppCompatActivity implements View.OnClickListener
         {
             new UpdateRow().execute();
             Log.d("Mine", "Exiting dialog box");
-            Intent intent = new Intent(this, Timesheet.class);
-            intent.putExtra("username", operator.getText().toString());
-            intent.putExtra("batch", batch.getText().toString());
-            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            inBackground = false;
-
-            finishAffinity();
-            startActivity(intent);
+//            Intent intent = new Intent(this, Timesheet.class);
+//            intent.putExtra("username", operator.getText().toString());
+//            intent.putExtra("batch", batch.getText().toString());
+//            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            inBackground = false;
+//
+//            finishAffinity();
+//            startActivity(intent);
             finish();
         }
     }

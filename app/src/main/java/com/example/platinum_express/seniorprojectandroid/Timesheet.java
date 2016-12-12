@@ -183,12 +183,13 @@ public class Timesheet extends AppCompatActivity{
     public static void setHistoryLength(int length){
         Timesheet.historyLength = length;
     }
+
     public void add_entry(View view){
         Intent intent1 = new Intent(this, AddPop.class);
         intent1.putExtra("batch", batch.getText().toString());
         intent1.putExtra("username", username.toString());
         startActivity(intent1);
-        finish();
+        //finish();
 
     }
 
@@ -200,7 +201,7 @@ public class Timesheet extends AppCompatActivity{
         intent1.putExtra("Index", selectedRowID);
         Log.d("Index", selectedRowID);
         startActivity(intent1);
-        finish();
+        //finish();
     }
 
     @Override
