@@ -163,6 +163,8 @@ public class Timesheet extends AppCompatActivity{
     @Override
     public void onBackPressed(){
         Intent intent1 = new Intent(this, MainActivity.class);
+        intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        inBackground = false;
         startActivity(intent1);
         finish();
     }
@@ -187,6 +189,8 @@ public class Timesheet extends AppCompatActivity{
         Intent intent1 = new Intent(this, AddPop.class);
         intent1.putExtra("batch", batch.getText().toString());
         intent1.putExtra("username", username.toString());
+        intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        inBackground = false;
         startActivity(intent1);
         finish();
 
@@ -199,6 +203,8 @@ public class Timesheet extends AppCompatActivity{
         intent1.putExtra("username", username);
         intent1.putExtra("Index", selectedRowID);
         Log.d("Index", selectedRowID);
+        intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        inBackground = false;
         startActivity(intent1);
         finish();
     }
@@ -225,6 +231,7 @@ public class Timesheet extends AppCompatActivity{
                 if ( inBackground )
                 {
                     Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     finish();
                 }

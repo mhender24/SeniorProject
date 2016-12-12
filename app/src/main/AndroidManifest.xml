@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity"
-
+            android:launchMode="singleTop"
             android:screenOrientation="portrait">
 
             <intent-filter>
@@ -24,16 +24,17 @@
         </activity>
 
         <activity android:name=".Timesheet"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="adjustPan"
         android:screenOrientation="portrait">
         </activity>
         <activity android:name=".AddPop"
-
+            android:launchMode="singleTop"
             android:noHistory="true"
             android:screenOrientation="portrait">
             </activity>
         <activity android:name=".EditPop"
-
+            android:launchMode="singleTop"
             android:noHistory="true"
             android:screenOrientation="portrait">
         </activity>

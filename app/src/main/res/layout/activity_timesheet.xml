@@ -155,7 +155,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:layout_height="710dp">
+                    android:layout_height="680dp">
 
 
                     <TableLayout

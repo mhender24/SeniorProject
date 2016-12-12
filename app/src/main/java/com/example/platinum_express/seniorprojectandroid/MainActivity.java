@@ -83,7 +83,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                     if (Encryption.decrypt(password.getText().toString(), auth.encryptedPassword)) {
                         Intent intent = new Intent(this, Timesheet.class);
                         intent.putExtra("username", username.getText().toString());
-                        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        //intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                         finish();
                     } else
@@ -91,13 +92,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                 } catch (Exception e) {
                     Log.d("Error", "Occurred during decryption");
                     error.setText("Invalid Username/Password");
-                }
-                if (username.getText().toString().equals("a") && password.getText().toString().equals("a")) {
-                    Intent intent = new Intent(this, Timesheet.class);
-                    intent.putExtra("username", username.getText().toString());
-                    intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                    finish();
                 }
             }
         } else {
