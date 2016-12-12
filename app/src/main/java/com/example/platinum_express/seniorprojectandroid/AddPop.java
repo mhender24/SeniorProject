@@ -20,14 +20,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.sql.Time;
 import java.util.concurrent.ExecutionException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.text.DateFormat;
 import org.apache.http.message.BasicNameValuePair;
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -98,7 +96,7 @@ import java.util.List;
             operatorStr = getIntent().getStringExtra("username");
             batchStr = getIntent().getStringExtra("batch");
             setViewData();
-            Button b = (Button) findViewById(R.id.submit);
+            Button b = (Button) findViewById(R.id.buttonSave);
             b.setOnClickListener(this);
 
             GetTaskData taskClass = new GetTaskData();

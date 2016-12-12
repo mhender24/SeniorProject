@@ -32,6 +32,11 @@
             android:noHistory="true"
             android:screenOrientation="portrait">
             </activity>
+        <activity android:name=".EditPop"
+
+            android:noHistory="true"
+            android:screenOrientation="portrait">
+        </activity>
         <uses-permission android:name="android.permission.INTERNET" /><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
         <meta-data

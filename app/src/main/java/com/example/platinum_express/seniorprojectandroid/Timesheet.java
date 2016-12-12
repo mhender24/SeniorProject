@@ -49,6 +49,7 @@ public class Timesheet extends AppCompatActivity{
     static int historyLength = -1;
     EditText batch;
     TableLayout history;
+    String selectedRowID = "";
     int tableWidths[] = {180, 160, 140, 160, 120, 320};
     String username;
     TextView error;
@@ -87,10 +88,29 @@ public class Timesheet extends AppCompatActivity{
             timesheet.execute().get();
             Log.d("After ececute ", "a");
             TableRow tableRow = null;
-            for (int i = 0; i < timesheet.dataList.size(); i++) {
+            for (int i = 0; i < timesheet.dataList.size(); i++)
+            {
                 HashMap<String, String> entry = timesheet.dataList.get(i);
                 tableRow = createTableRow(entry);
+                tableRow.setId(Integer.parseInt(entry.get("Index")));
+                tableRow.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        for(int i = 0; i < history.getChildCount(); i++)
+                        {
+                            View view = history.getChildAt(i);
+                            if (view instanceof TableRow)
+                            {
+                                view.setBackgroundColor(Color.WHITE);
+                            }
+                            v.setBackgroundColor(Color.CYAN);
+                            selectedRowID = String.valueOf(v.getId());
+                        }
+                    }
 
+                });
                 history.addView(tableRow);
             }
         } catch (InterruptedException e) {
@@ -100,7 +120,6 @@ public class Timesheet extends AppCompatActivity{
         }
 
     }
-
 
     private TableRow createTableRow(HashMap<String, String> entry){
         TableRow tableRow = new TableRow(this);
@@ -171,6 +190,17 @@ public class Timesheet extends AppCompatActivity{
         startActivity(intent1);
         finish();
 
+    }
+
+    public void edit_entry(View view)
+    {
+        Intent intent1 = new Intent(this, EditPop.class);
+        intent1.putExtra("batch", batch.getText().toString());
+        intent1.putExtra("username", username);
+        intent1.putExtra("Index", selectedRowID);
+        Log.d("Index", selectedRowID);
+        startActivity(intent1);
+        finish();
     }
 
     @Override

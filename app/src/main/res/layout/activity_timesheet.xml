@@ -181,14 +181,31 @@
         android:layout_above="@+id/batch_text"
         android:layout_centerHorizontal="true" />
 
-    <Button
-        android:text="Add"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
-        android:id="@+id/add_btn"
-        android:minWidth="120dp"
-        android:onClick="add_entry"
+        android:layout_height="100dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:orientation="horizontal">
+        <Button
+            android:text="Add"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="wrap_content"
+            android:id="@+id/add_btn"
+            android:minWidth="120dp"
+            android:onClick="add_entry"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:text="Edit"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonEdit"
+            android:minWidth="120dp"
+            android:onClick="edit_entry"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/relativeLayout" />
+    </LinearLayout>
 </RelativeLayout>
