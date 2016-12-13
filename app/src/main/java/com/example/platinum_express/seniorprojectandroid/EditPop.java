@@ -146,9 +146,7 @@ public class EditPop extends AppCompatActivity implements View.OnClickListener
         intent.putExtra("username", operator.getText().toString());
         intent.putExtra("batch", batch.getText().toString());
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        timeout.cancel();
         finishAffinity();
-        inBackground = false;
 
         startActivity(intent);
         finish();

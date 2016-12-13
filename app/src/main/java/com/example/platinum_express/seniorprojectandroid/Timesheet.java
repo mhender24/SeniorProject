@@ -143,7 +143,6 @@ public class Timesheet extends AppCompatActivity{
     public void onBackPressed(){
         Intent intent1 = new Intent(this, MainActivity.class);
         intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        inBackground = false;
         startActivity(intent1);
         finish();
     }

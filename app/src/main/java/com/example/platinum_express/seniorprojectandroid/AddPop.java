@@ -139,9 +139,7 @@ import java.util.List;
             intent.putExtra("batch", batch.getText().toString());
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             //intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            timeout.cancel();
             finishAffinity();
-            inBackground = false;
 
             startActivity(intent);
             finish();
